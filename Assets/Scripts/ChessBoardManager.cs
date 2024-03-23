@@ -40,6 +40,7 @@ public partial class ChessBoardManager : Singleton<ChessBoardManager>
     private void TempInit()
     {
         AddChessObject(ChessObjectPrefabMap.Instance.GetPrefab("Kaier"), 2, 3); // 添加棋子到棋盘格子
+        AddChessObject(ChessObjectPrefabMap.Instance.GetPrefab("Kasha"), 3, 3); // 添加棋子到棋盘格子
     }
 
     /// <summary>
@@ -63,22 +64,34 @@ public partial class ChessBoardManager : Singleton<ChessBoardManager>
     /// <param name="chessObject"></param>
     /// <param name="row"></param>
     /// <param name="column"></param>
-    public void AddChessObject(GameObject chessObject, int row, int column)
+    public void AddChessObject(GameObject chessObject, int row, int col)
     {
-        if (row < 0 || row >= rowCount || column < 0 || column >= columnCount)
+        if (row < 0 || row >= rowCount || col < 0 || col >= columnCount)
         {
             Debug.LogError("AddChessObject: row or column out of range");
             return;
         }
 
-        if (chessBoardModel[row, column] != null)
+        if (IsExistChessOnCellByRowColIndex(row, col))
         {
             Debug.LogError("AddChessObject: cell already has a chess object");
             return;
         }
-        
-        GameObject instantChess = InstantiateChess(chessObject, row, column); // 实例化棋子
-        chessBoardModel[row, column] = instantChess.GetComponent<ChessObject>(); // 添加到棋盘格子
+
+        if (chessObject == null)
+        {
+            Debug.LogError("AddChessObject: chess object is null");
+            return;
+        }
+
+        if (chessObject.GetComponent<ChessObject>() == null)
+        {
+            Debug.LogError("AddChessObject: chess object has no ChessObject component");
+            return;
+        }
+
+        GameObject instantChess = InstantiateChess(chessObject, row, col); // 实例化棋子
+        chessBoardModel[row, col] = instantChess.GetComponent<ChessObject>(); // 添加到棋盘格子
     }
 
     /// <summary>
