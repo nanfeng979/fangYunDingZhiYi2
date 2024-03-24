@@ -28,18 +28,7 @@ public class ChessObject : YunDingZhiYiBaseObject
             hp = value;
         }
     }
-    protected bool isDead; // 是否死亡
-    public bool IsDead
-    {
-        get
-        {
-            return isDead;
-        }
-        set
-        {
-            isDead = value;
-        }
-    }
+    
     protected float attack; // 攻击力
     public float Attack
     {
@@ -72,6 +61,8 @@ public class ChessObject : YunDingZhiYiBaseObject
         SetStateBefore(); // 设置状态前
 
         SetState(new IdleState(this)); // 默认状态
+
+        IsFight = true; // 默认战斗
     }
 
     protected override void Update()
@@ -87,6 +78,16 @@ public class ChessObject : YunDingZhiYiBaseObject
         if (Input.GetKeyDown(KeyCode.A))
         {
             SetState(new AttackState(this));
+        }
+
+        // 战斗时
+        if (IsFight)
+        {
+            // 执行装备事件
+            foreach (var equipment in equipmentList)
+            {
+                equipment.ExecuteEvent(this);
+            }
         }
     }
 
@@ -136,6 +137,31 @@ public class ChessObject : YunDingZhiYiBaseObject
 
     #region 状态区
     protected IState currentState; // 当前状态
+
+    protected bool isDead; // 是否死亡
+    public bool IsDead
+    {
+        get
+        {
+            return isDead;
+        }
+        set
+        {
+            isDead = value;
+        }
+    }
+    protected bool isFight; // 是否战斗
+    public bool IsFight
+    {
+        get
+        {
+            return isFight;
+        }
+        set
+        {
+            isFight = value;
+        }
+    }
 
     /// <summary>
     /// 设置状态
@@ -199,7 +225,7 @@ public class ChessObject : YunDingZhiYiBaseObject
     {
         foreach (var equipment in equipmentList)
         {
-            equipment.LoadProperties(this);
+            equipment.LoadEvent(this);
         }
     }
 

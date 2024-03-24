@@ -11,7 +11,8 @@ public class DeadState : IState
 
     public void Enter()
     {
-        chessObject.IsDead = true;
+        chessObject.IsDead = true; // 设置死亡状态
+        chessObject.IsFight = false; // 设置战斗状态
 
         // 从棋盘中移除
         ChessBoardManager.Instance.RemoveChessObjectByVector2IntIndex(chessObject.Vector2IntIndex);
