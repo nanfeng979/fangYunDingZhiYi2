@@ -4,6 +4,9 @@ public class AttackState : IState
 {
     private ChessObject chessObject;
 
+    private float attackTime = 0; // 攻击时间
+    private float attackInterval; // 攻击间隔
+
     public AttackState(ChessObject chessObject)
     {
         this.chessObject = chessObject;
@@ -11,12 +14,19 @@ public class AttackState : IState
 
     public void Enter()
     {
+        attackInterval = chessObject.AttackInterval == 0 ? 1 : chessObject.AttackInterval;
+
         Debug.Log(chessObject.ObjectName + " AttackState Enter");
     }
 
     public void Execute()
     {
-        // Debug.Log(chessObject.ObjectName + " AttackState Execute");
+        attackTime += Time.deltaTime;
+        if (attackTime < attackInterval)
+        {
+            return;
+        }
+        attackTime -= attackInterval;
 
         // 获取周围的棋子对象
         ChessObject aroundChessObject = chessObject.GetSurroundingChessObject();

@@ -77,6 +77,10 @@ public partial class ChessBoardManager
     /// <returns></returns>
     private ChessObject GetChessObjectByVector2IntIndex(Vector2Int vector2IntIndex)
     {
+        if (vector2IntIndex.x == -1 || vector2IntIndex.y == -1)
+        {
+            return null;
+        }
         return chessBoardModel[vector2IntIndex.x, vector2IntIndex.y];
     }
 
@@ -264,4 +268,35 @@ public partial class ChessBoardManager
         return availableChess[Random.Range(0, availableChess.Count)];
     }
 
+    /// <summary>
+    /// 通过行列索引移除格子上的棋子
+    /// </summary>
+    /// <param name="row"></param>
+    /// <param name="col"></param>
+    public void RemoveChessObjectByRowColIndex(int row, int col)
+    {
+        if (row < 0 || row >= rowCount || col < 0 || col >= columnCount)
+        {
+            Debug.LogError("RemoveChessObject: row or column out of range");
+            return;
+        }
+
+        if (!IsExistChessOnCellByRowColIndex(row, col))
+        {
+            Debug.LogError("RemoveChessObject: cell has no chess object");
+            return;
+        }
+
+        chessBoardModel[row, col] = null;
+    }
+
+    /// <summary>
+    /// 通过Vector2Int索引移除格子上的棋子
+    /// </summary>
+    /// <param name="vector2IntIndex"></param>
+    /// <returns></returns>
+    public void RemoveChessObjectByVector2IntIndex(Vector2Int vector2IntIndex)
+    {
+        RemoveChessObjectByRowColIndex(vector2IntIndex.x, vector2IntIndex.y);
+    }
 }

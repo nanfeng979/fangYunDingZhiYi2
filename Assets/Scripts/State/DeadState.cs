@@ -11,22 +11,17 @@ public class DeadState : IState
 
     public void Enter()
     {
+        chessObject.IsDead = true;
+
+        // 从棋盘中移除
+        ChessBoardManager.Instance.RemoveChessObjectByVector2IntIndex(chessObject.Vector2IntIndex);
+
         Debug.Log(chessObject.ObjectName + " DeadState Enter");
     }
 
     public void Execute()
     {
-        string str;
-
-        if (chessObject.ObjectName == "Jiqiren") str = "<color=green>";
-        else if (chessObject.ObjectName == "Wei") str = "<color=red>";
-        else str = "<color=blue>";
-
-        str += chessObject.ObjectName + " DeadState Execute";
-
-        str += "</color>";
-
-        Debug.Log(str);
+        chessObject.gameObject.SetActive(false);
     }
 
     public void Exit()

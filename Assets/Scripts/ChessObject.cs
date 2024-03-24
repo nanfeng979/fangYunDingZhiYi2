@@ -27,6 +27,18 @@ public class ChessObject : YunDingZhiYiBaseObject
             hp = value;
         }
     }
+    protected bool isDead; // 是否死亡
+    public bool IsDead
+    {
+        get
+        {
+            return isDead;
+        }
+        set
+        {
+            isDead = value;
+        }
+    }
     protected float attack; // 攻击力
     public float Attack
     {
@@ -39,6 +51,19 @@ public class ChessObject : YunDingZhiYiBaseObject
             attack = value;
         }
     }
+    protected float attackInterval; // 攻击间隔
+    public float AttackInterval
+    {
+        get
+        {
+            return attackInterval;
+        }
+        set
+        {
+            attackInterval = value;
+        }
+    }
+
 
     protected IState currentState; // 当前状态
 
@@ -77,7 +102,7 @@ public class ChessObject : YunDingZhiYiBaseObject
     // 攻击
     public void AttackChessObject(ChessObject otherChessObject)
     {
-        if (otherChessObject.IsCurrentState(new DeadState(otherChessObject)))
+        if (otherChessObject.isDead)
         {
             return;
         }
