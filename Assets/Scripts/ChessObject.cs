@@ -42,21 +42,6 @@ public class ChessObject : YunDingZhiYiBaseObject
 
     protected IState currentState; // 当前状态
 
-    /// <summary>
-    /// 设置状态
-    /// </summary>
-    /// <param name="state"></param>
-    public void SetState(IState state)
-    {
-        if (currentState != null)
-        {
-            currentState.Exit(); // 退出旧状态
-        }
-
-        currentState = state; // 设置新状态
-        currentState.Enter(); // 进入新状态
-    }
-
     protected override void Start()
     {
         base.Start();
@@ -90,9 +75,14 @@ public class ChessObject : YunDingZhiYiBaseObject
     }
 
     // 攻击
-    public void AttackChessObject(ChessObject chessObject)
+    public void AttackChessObject(ChessObject otherChessObject)
     {
-        chessObject.BeAttacked(attack);
+        if (otherChessObject.IsCurrentState(new DeadState(otherChessObject)))
+        {
+            return;
+        }
+
+        otherChessObject.BeAttacked(attack);
     }
 
     // 被攻击
@@ -111,6 +101,40 @@ public class ChessObject : YunDingZhiYiBaseObject
     // 死亡
     public void Die()
     {
-        gameObject.SetActive(false);
+        SetState(new DeadState(this));
+    }
+
+    /// <summary>
+    /// 设置状态
+    /// </summary>
+    /// <param name="state"></param>
+    public void SetState(IState state)
+    {
+        if (currentState != null)
+        {
+            currentState.Exit(); // 退出旧状态
+        }
+
+        currentState = state; // 设置新状态
+        currentState.Enter(); // 进入新状态
+    }
+
+    /// <summary>
+    /// 获取当前状态
+    /// </summary>
+    /// <returns></returns>
+    public IState GetCurrentState()
+    {
+        return currentState;
+    }
+
+    /// <summary>
+    /// 判断当前状态是否是某个状态
+    /// </summary>
+    /// <param name="state"></param>
+    /// <returns></returns>
+    public bool IsCurrentState(IState state)
+    {
+        return currentState == state;
     }
 }
