@@ -1,6 +1,12 @@
 public class EquipmentBaseClass
 {
     protected string objectName; // 装备名称
+    protected ChessObject chessObject; // 拥有者
+
+    public EquipmentBaseClass(ChessObject chessObject)
+    {
+        this.chessObject = chessObject;
+    }
 
     // 委托
     public delegate void EquipmentDelegate(ChessObject chessObject);

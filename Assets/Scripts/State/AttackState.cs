@@ -14,7 +14,8 @@ public class AttackState : IState
 
     public void Enter()
     {
-        attackInterval = chessObject.AttackInterval == 0 ? 1 : chessObject.AttackInterval;
+        attackInterval = chessObject.AttackInterval == 0 ? 1 : chessObject.AttackInterval; // 设置攻击间隔
+        chessObject.IsFight = true; // 设置为战斗状态
 
         Debug.Log(chessObject.ObjectName + " AttackState Enter");
     }

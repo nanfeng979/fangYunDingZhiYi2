@@ -6,13 +6,13 @@ public class JiqirenHeroObject : ChessObject
 
         objectName = "Jiqiren";
         HP += 50;
-        Attack += 10;
+        Attack += 8;
     }
 
     protected override void SetStateBefore()
     {
         base.SetStateBefore();
 
-        AddEquipment(new FanjiaEquipment()); // 添加装备
+        AddEquipment(new FanjiaEquipment(this)); // 添加装备
     }
 }

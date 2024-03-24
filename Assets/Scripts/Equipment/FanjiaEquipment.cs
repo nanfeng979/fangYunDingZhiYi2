@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class FanjiaEquipment : EquipmentBaseClass
 {
+    public FanjiaEquipment(ChessObject chessObject) : base(chessObject) { }
+
     // 频率
     private float frequency = 1.0f;
     private float frequencyTimer = 0.0f;
@@ -11,7 +13,9 @@ public class FanjiaEquipment : EquipmentBaseClass
     {
         objectName = "Fanjia";
         LoadEquipmentDelegate += AddHP;
-        ExecuteEquipmentDelegate += Test;
+
+        // 注册被攻击事件
+        chessObject.BeAttackedDelegate += BounceDamage;
 
         base.LoadEvent(chessObject);
     }
@@ -28,15 +32,9 @@ public class FanjiaEquipment : EquipmentBaseClass
         chessObject.HP += 100;
     }
 
-    // 测试
-    public void Test(ChessObject chessObject)
+    // 被动事件测试
+    public void BounceDamage(ChessObject attackChessObject, float damageValue)
     {
-        frequencyTimer += Time.deltaTime;
-        if (frequencyTimer < frequency)
-        {
-            return;
-        }
-        frequencyTimer -= frequency;
-        Debug.Log("<color=red>" + chessObject.ObjectName + " ExecuteEvent </color>");
+        attackChessObject.HP -= damageValue * 0.1f;
     }
 }

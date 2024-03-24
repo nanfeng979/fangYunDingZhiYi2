@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class WeiHeroObject : ChessObject
 {
     protected override void Start()
@@ -15,6 +13,6 @@ public class WeiHeroObject : ChessObject
     {
         base.SetStateBefore();
 
-        AddEquipment(new FanjiaEquipment()); // 添加装备
+        AddEquipment(new FanjiaEquipment(this)); // 添加装备
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -60,9 +61,7 @@ public class ChessObject : YunDingZhiYiBaseObject
 
         SetStateBefore(); // 设置状态前
 
-        SetState(new IdleState(this)); // 默认状态
-
-        IsFight = true; // 默认战斗
+        SetState(new NoFightState(this)); // 默认状态
     }
 
     protected override void Update()
@@ -83,7 +82,7 @@ public class ChessObject : YunDingZhiYiBaseObject
         // 战斗时
         if (IsFight)
         {
-            // 执行装备事件
+            // 执行装备主动事件
             foreach (var equipment in equipmentList)
             {
                 equipment.ExecuteEvent(this);
@@ -113,12 +112,14 @@ public class ChessObject : YunDingZhiYiBaseObject
             return;
         }
 
-        otherChessObject.BeAttacked(attack);
+        otherChessObject.BeAttacked(attack, this);
     }
 
     // 被攻击
-    protected void BeAttacked(float attack)
+    public void BeAttacked(float attack, ChessObject attackChessObject)
     {
+        BeAttackedDelegate?.Invoke(attackChessObject, attack); // 被攻击事件
+
         hp -= attack;
 
         Debug.LogError(objectName + " BeAttacked hp: " + hp);
@@ -230,4 +231,10 @@ public class ChessObject : YunDingZhiYiBaseObject
     }
 
     #endregion 装备区
+
+    #region 事件区
+    // 委托
+    public Action<ChessObject, float> BeAttackedDelegate; // 被攻击事件
+
+    #endregion 事件区
 }
