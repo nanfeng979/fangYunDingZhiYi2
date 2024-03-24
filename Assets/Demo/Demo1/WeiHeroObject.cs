@@ -12,7 +12,5 @@ public class WeiHeroObject : ChessObject
     protected override void SetStateBefore()
     {
         base.SetStateBefore();
-
-        AddEquipment(new FanjiaEquipment(this)); // 添加装备
     }
 }

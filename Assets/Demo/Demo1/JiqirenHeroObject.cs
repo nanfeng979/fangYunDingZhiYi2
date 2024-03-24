@@ -6,7 +6,8 @@ public class JiqirenHeroObject : ChessObject
 
         objectName = "Jiqiren";
         HP += 50;
-        Attack += 8;
+        Attack += 10;
+        AttackInterval = 1.5f;
     }
 
     protected override void SetStateBefore()
