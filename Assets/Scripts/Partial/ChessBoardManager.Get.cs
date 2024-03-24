@@ -60,11 +60,32 @@ public partial class ChessBoardManager
     }
 
     /// <summary>
+    /// 通过Vector2Int索引找出周围的棋子中的随机一个棋子
+    /// </summary>
+    /// <param name="vector2IntIndex"></param>
+    /// <returns></returns>
+    public ChessObject GetChessObjectBySurroundingChessObjectWithRandom(Vector2Int vector2IntIndex)
+    {
+        Vector2Int aroundIndex = GetVector2IntIndexBySurroundingChessObjectWithRandom(vector2IntIndex);
+        return GetChessObjectByVector2IntIndex(aroundIndex);
+    }
+
+    /// <summary>
+    /// 通过Vector2Int索引找出棋子
+    /// </summary>
+    /// <param name="vector2IntIndex"></param>
+    /// <returns></returns>
+    private ChessObject GetChessObjectByVector2IntIndex(Vector2Int vector2IntIndex)
+    {
+        return chessBoardModel[vector2IntIndex.x, vector2IntIndex.y];
+    }
+
+    /// <summary>
     /// 通过Vector2Int索引找出周围的棋子中的随机一个棋子的Vector2Int索引
     /// </summary>
     /// <param name="vector2IntIndex"></param>
     /// <returns></returns>
-    private Vector2Int GetVector2IntIndexBySurroundingChessObjectWithRandom(Vector2Int vector2IntIndex)
+    public Vector2Int GetVector2IntIndexBySurroundingChessObjectWithRandom(Vector2Int vector2IntIndex)
     {
         List<Vector2Int> aroundCellIndex = GetSurroundingCellsByVector2IntIndex(vector2IntIndex);
         return GetVector2IndexByChessObjectsWithRandom(aroundCellIndex);

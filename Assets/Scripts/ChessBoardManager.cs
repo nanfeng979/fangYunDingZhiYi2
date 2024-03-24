@@ -92,6 +92,7 @@ public partial class ChessBoardManager : Singleton<ChessBoardManager>
 
         GameObject instantChess = InstantiateChess(chessObject, row, col); // 实例化棋子
         chessBoardModel[row, col] = instantChess.GetComponent<ChessObject>(); // 添加到棋盘格子
+        chessBoardModel[row, col].Vector2IntIndex = new Vector2Int(row, col); // 设置棋子位置
     }
 
     /// <summary>

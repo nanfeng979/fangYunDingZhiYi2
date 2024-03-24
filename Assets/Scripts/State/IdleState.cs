@@ -17,16 +17,17 @@ public class IdleState : IState
     public void Execute()
     {
         string str;
-        
+
         if (chessObject.ObjectName == "Jiqiren") str = "<color=green>";
         else if (chessObject.ObjectName == "Wei") str = "<color=red>";
         else str = "<color=blue>";
 
-        str += chessObject.ObjectName + " IdleState Execute";
+        // str += chessObject.ObjectName + " IdleState Execute";
+        string aroundChessObjectName = chessObject.GetSurroundingChessObject().ObjectName;
 
         str += "</color>";
 
-        Debug.Log(str);
+        // Debug.Log(str);
     }
 
     public void Exit()

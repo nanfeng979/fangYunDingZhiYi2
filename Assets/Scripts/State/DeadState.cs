@@ -16,7 +16,17 @@ public class DeadState : IState
 
     public void Execute()
     {
-        Debug.Log(chessObject.ObjectName + " DeadState Execute");
+        string str;
+
+        if (chessObject.ObjectName == "Jiqiren") str = "<color=green>";
+        else if (chessObject.ObjectName == "Wei") str = "<color=red>";
+        else str = "<color=blue>";
+
+        str += chessObject.ObjectName + " DeadState Execute";
+
+        str += "</color>";
+
+        Debug.Log(str);
     }
 
     public void Exit()
