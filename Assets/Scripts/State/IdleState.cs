@@ -12,6 +12,9 @@ public class IdleState : IState
     public void Enter()
     {
         Debug.Log(chessObject.ObjectName + " IdleState Enter");
+
+        // 载入装备属性
+        chessObject.LoadEquipmentProperties();
     }
 
     public void Execute()

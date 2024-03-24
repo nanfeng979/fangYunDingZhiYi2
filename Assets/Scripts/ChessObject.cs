@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ChessObject : YunDingZhiYiBaseObject
@@ -64,12 +65,11 @@ public class ChessObject : YunDingZhiYiBaseObject
         }
     }
 
-
-    protected IState currentState; // 当前状态
-
     protected override void Start()
     {
         base.Start();
+
+        SetStateBefore(); // 设置状态前
 
         SetState(new IdleState(this)); // 默认状态
     }
@@ -89,6 +89,11 @@ public class ChessObject : YunDingZhiYiBaseObject
             SetState(new AttackState(this));
         }
     }
+
+    /// <summary>
+    /// 设置状态前
+    /// </summary>
+    protected virtual void SetStateBefore() { }
 
     /// <summary>
     /// 获取周围随机的一个棋子对象
@@ -129,6 +134,9 @@ public class ChessObject : YunDingZhiYiBaseObject
         SetState(new DeadState(this));
     }
 
+    #region 状态区
+    protected IState currentState; // 当前状态
+
     /// <summary>
     /// 设置状态
     /// </summary>
@@ -162,4 +170,38 @@ public class ChessObject : YunDingZhiYiBaseObject
     {
         return currentState == state;
     }
+
+    #endregion 状态区
+
+    #region 装备区
+    protected List<EquipmentBaseClass> equipmentList = new List<EquipmentBaseClass>(); // 装备列表
+
+    /// <summary>
+    /// 添加装备
+    /// </summary>
+    /// <param name="equipment"></param>
+    protected void AddEquipment(EquipmentBaseClass equipment)
+    {
+        equipmentList.Add(equipment);
+    }
+
+    /// <summary>
+    /// 移除装备
+    /// </summary>
+    /// <param name="equipment"></param>
+    protected void RemoveEquipment(EquipmentBaseClass equipment)
+    {
+        equipmentList.Remove(equipment);
+    }
+
+    // 载入装备属性
+    public void LoadEquipmentProperties()
+    {
+        foreach (var equipment in equipmentList)
+        {
+            equipment.LoadProperties(this);
+        }
+    }
+
+    #endregion 装备区
 }

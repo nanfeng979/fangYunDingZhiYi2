@@ -7,10 +7,14 @@ public class WeiHeroObject : ChessObject
         base.Start();
 
         objectName = "Wei";
-        HP = 100;
-        Attack = 10;
+        HP += 100;
+        Attack += 10;
+    }
 
-        Vector2Int aroundIndex = ChessBoardManager.Instance.GetVector2IntIndexBySurroundingChessObjectWithRandom(vector2IntIndex);
-        Debug.Log("WeiHeroObject Start aroundIndex: " + aroundIndex);
+    protected override void SetStateBefore()
+    {
+        base.SetStateBefore();
+
+        AddEquipment(new FanjiaEquipment()); // 添加装备
     }
 }
