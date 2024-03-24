@@ -1,7 +1,9 @@
 public class WeiHeroObject : ChessObject
 {
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         objectName = "Wei";
     }
 }

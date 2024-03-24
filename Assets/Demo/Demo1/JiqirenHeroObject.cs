@@ -1,7 +1,9 @@
 public class JiqirenHeroObject : ChessObject
 {
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         objectName = "Jiqiren";
     }
 }
