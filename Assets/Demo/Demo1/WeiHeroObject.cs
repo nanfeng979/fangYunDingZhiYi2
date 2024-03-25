@@ -7,6 +7,7 @@ public class WeiHeroObject : ChessObject
         objectName = "Wei";
         HP += 100;
         Attack += 10;
+        MaxHp = HP;
     }
 
     protected override void SetStateBefore()

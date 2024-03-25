@@ -8,6 +8,7 @@ public class JiqirenHeroObject : ChessObject
         HP += 50;
         Attack += 10;
         AttackInterval = 1.5f;
+        MaxHp = HP;
     }
 
     protected override void SetStateBefore()

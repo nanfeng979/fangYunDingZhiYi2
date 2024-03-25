@@ -29,7 +29,19 @@ public class ChessObject : YunDingZhiYiBaseObject
             hp = value;
         }
     }
-    
+    protected float maxHp; // 最大生命值
+    public float MaxHp
+    {
+        get
+        {
+            return maxHp;
+        }
+        set
+        {
+            maxHp = value;
+        }
+    }
+
     protected float attack; // 攻击力
     public float Attack
     {
@@ -62,6 +74,8 @@ public class ChessObject : YunDingZhiYiBaseObject
         SetStateBefore(); // 设置状态前
 
         SetState(new NoFightState(this)); // 默认状态
+
+        LoadHealthBar(); // 载入血条
     }
 
     protected override void Update()
@@ -87,6 +101,9 @@ public class ChessObject : YunDingZhiYiBaseObject
             {
                 equipment.ExecuteEvent(this);
             }
+
+            // 更新血条
+            UpdateHealthBar();
         }
     }
 
@@ -237,4 +254,34 @@ public class ChessObject : YunDingZhiYiBaseObject
     public Action<ChessObject, float> BeAttackedDelegate; // 被攻击事件
 
     #endregion 事件区
+
+    #region 展示区
+    protected GameObject healthBar; // 血条
+    protected void LoadHealthBar()
+    {
+        Transform canvas = transform.Find("Canvas");
+        if (canvas != null)
+        {
+            Transform healthBarBackground = canvas.Find("HealthBarBackground");
+            if (healthBarBackground != null)
+            {
+                healthBar = healthBarBackground.Find("HealthBar").gameObject;
+            }
+        }
+    }
+    /// <summary>
+    /// 更新血条
+    /// </summary>
+    protected virtual void UpdateHealthBar()
+    {
+        if (healthBar == null)
+        {
+            return;
+        }
+
+        UnityEngine.UI.Image healthBarImage = healthBar.GetComponent<UnityEngine.UI.Image>();
+        healthBarImage.fillAmount = hp / maxHp;
+    }
+
+    #endregion 展示区
 }

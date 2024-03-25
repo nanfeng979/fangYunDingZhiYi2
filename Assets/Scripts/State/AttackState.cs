@@ -46,7 +46,7 @@ public class AttackState : IState
 
         str += "</color>";
 
-        Debug.Log(str);
+        // Debug.Log(str);
     }
 
     public void Exit()
