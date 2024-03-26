@@ -13,7 +13,7 @@ public class FanjiaEquipment : EquipmentBaseClass
         LoadEquipmentDelegate += AddHP;
 
         // 注册主动事件
-        // ExecuteEquipmentDelegate += ActiveEvent;
+        // ExecuteEquipmentDelegate += Test;
 
         // 注册被攻击事件
         chessObject.BeAttackedDelegate += BounceDamage;
@@ -39,6 +39,12 @@ public class FanjiaEquipment : EquipmentBaseClass
     public void BounceDamage(ChessObject attackChessObject, float damageValue)
     {
         attackChessObject.HP -= damageValue * 0.1f;
+    }
+
+    // 主动测试
+    public void Test(ChessObject chessObject)
+    {
+        UnityEngine.Debug.Log("Fanjia Test");
     }
 
     #endregion 功能函数区

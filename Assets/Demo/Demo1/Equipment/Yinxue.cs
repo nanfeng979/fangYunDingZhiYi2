@@ -11,6 +11,9 @@ public class Yinxue : EquipmentBaseClass
     {
         // 注册角色攻击事件
         chessObject.AttackDelegate += AttackEvent;
+
+        // 注册主动事件
+        // ExecuteEquipmentDelegate += Test;
     }
 
     #region 生命周期
@@ -23,9 +26,16 @@ public class Yinxue : EquipmentBaseClass
     #endregion 生命周期
 
     #region 功能函数区
+    // 角色攻击事件
     protected void AttackEvent(ChessObject attackChessObject, float damageValue)
     {
         attackChessObject.HP += 100;
+    }
+
+    // 主动测试
+    public void Test(ChessObject chessObject)
+    {
+        UnityEngine.Debug.Log("Yinxue Test");
     }
 
     #endregion 功能函数区

@@ -9,9 +9,4 @@ public class WeiHeroObject : ChessObject
         Attack += 10;
         MaxHp = HP;
     }
-
-    protected override void SetStateBefore()
-    {
-        base.SetStateBefore();
-    }
 }

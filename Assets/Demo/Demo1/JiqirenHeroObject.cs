@@ -10,11 +10,4 @@ public class JiqirenHeroObject : ChessObject
         AttackInterval = 1.5f;
         MaxHp = HP;
     }
-
-    protected override void SetStateBefore()
-    {
-        base.SetStateBefore();
-
-        AddEquipment(new FanjiaEquipment(this)); // 添加装备
-    }
 }

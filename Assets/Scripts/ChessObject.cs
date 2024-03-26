@@ -310,8 +310,15 @@ public class ChessObject : YunDingZhiYiBaseObject
             return;
         }
 
+        if (equipmentList.Count >= 3)
+        {
+            Debug.LogError("equipmentList.Count >= 3");
+            return;
+        }
+
         // 添加装备
-        GameObject equipment = equipmentColumn.transform.Find("Equipment1")?.gameObject;
+        int index = equipmentList.Count + 1;
+        GameObject equipment = equipmentColumn.transform.Find("Equipment" + index)?.gameObject;
         if (equipment == null)
         {
             return;
