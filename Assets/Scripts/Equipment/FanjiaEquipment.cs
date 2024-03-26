@@ -2,11 +2,13 @@ public class FanjiaEquipment : EquipmentBaseClass
 {
     public FanjiaEquipment(ChessObject chessObject) : base(chessObject) { }
 
-    #region 生命周期
-    // 载入装备
-    public override void LoadEvent(ChessObject chessObject)
+    protected override void DefineProperty()
     {
-        objectName = "Fanjia";
+        propertyName = "Fanjia";
+    }
+
+    protected override void DefineEvent()
+    {
         // 注册载入事件
         LoadEquipmentDelegate += AddHP;
 
@@ -15,10 +17,9 @@ public class FanjiaEquipment : EquipmentBaseClass
 
         // 注册被攻击事件
         chessObject.BeAttackedDelegate += BounceDamage;
-
-        base.LoadEvent(chessObject);
     }
 
+    #region 生命周期
     // 执行装备
     public override void ExecuteEvent(ChessObject chessObject)
     {

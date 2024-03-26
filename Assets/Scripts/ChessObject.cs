@@ -242,15 +242,6 @@ public class ChessObject : YunDingZhiYiBaseObject
         equipmentList.Remove(equipment);
     }
 
-    // 载入所有装备属性
-    public void LoadEquipmentProperties()
-    {
-        foreach (var equipment in equipmentList)
-        {
-            equipment.LoadEvent(this);
-        }
-    }
-
     #endregion 装备区
 
     #region 事件区
