@@ -330,7 +330,7 @@ public class ChessObject : YunDingZhiYiBaseObject
         equipment.GetComponent<UnityEngine.UI.Image>().sprite = sprite;
 
         // 将equipmentName实例化为装备对象
-        EquipmentBaseClass equipmentSerializableClass = (EquipmentBaseClass)Activator.CreateInstance(Type.GetType(equipmentName), new object[] { this });
+        EquipmentBaseClass equipmentSerializableClass = Y9g.Utils.InstanceClassByString<EquipmentBaseClass>(equipmentName, new object[] { this });
         if (equipmentSerializableClass == null)
         {
             prop.UnUseProp();

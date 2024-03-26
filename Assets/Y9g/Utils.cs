@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Y9g
 {
-    public sealed class Utils
+    public sealed partial class Utils
     {
         /// <summary>
         /// 16进制颜色转换为Color
