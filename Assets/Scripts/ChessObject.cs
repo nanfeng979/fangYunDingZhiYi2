@@ -76,6 +76,7 @@ public class ChessObject : YunDingZhiYiBaseObject
         SetState(new NoFightState(this)); // 默认状态
 
         LoadHealthBar(); // 载入血条
+        LoadEquipmentColumn(); // 载入装备栏
     }
 
     protected override void Update()
@@ -90,6 +91,7 @@ public class ChessObject : YunDingZhiYiBaseObject
         // 测试
         if (Input.GetKeyDown(KeyCode.A))
         {
+            // 进入攻击状态
             SetState(new AttackState(this));
         }
 
@@ -226,6 +228,7 @@ public class ChessObject : YunDingZhiYiBaseObject
     /// <param name="equipment"></param>
     protected void AddEquipment(EquipmentBaseClass equipment)
     {
+        equipment.LoadEvent(this);
         equipmentList.Add(equipment);
     }
 
@@ -238,7 +241,7 @@ public class ChessObject : YunDingZhiYiBaseObject
         equipmentList.Remove(equipment);
     }
 
-    // 载入装备属性
+    // 载入所有装备属性
     public void LoadEquipmentProperties()
     {
         foreach (var equipment in equipmentList)
@@ -256,7 +259,11 @@ public class ChessObject : YunDingZhiYiBaseObject
     #endregion 事件区
 
     #region 展示区
+    // 血条
     protected GameObject healthBar; // 血条
+    /// <summary>
+    /// 载入血条
+    /// </summary>
     protected void LoadHealthBar()
     {
         Transform canvas = transform.Find("Canvas");
@@ -281,6 +288,51 @@ public class ChessObject : YunDingZhiYiBaseObject
 
         UnityEngine.UI.Image healthBarImage = healthBar.GetComponent<UnityEngine.UI.Image>();
         healthBarImage.fillAmount = hp / maxHp;
+    }
+
+    // 装备
+    protected GameObject equipmentColumn; // 装备栏
+
+    protected void LoadEquipmentColumn()
+    {
+        Transform canvas = transform.Find("Canvas");
+        if (canvas != null)
+        {
+            equipmentColumn = canvas.Find("EquipmentColumn")?.gameObject;
+        }
+    }
+
+    // 装备栏添加装备
+    public void AddEquipmentColumn(string equipmentName, Sprite sprite)
+    {
+        if (equipmentColumn == null)
+        {
+            Debug.LogError("equipmentColumn is null");
+            return;
+        }
+
+        if (equipmentColumn == null)
+        {
+            Debug.LogError("equipmentColumn is null");
+            return;
+        }
+
+        // 添加装备
+        GameObject equipment = equipmentColumn.transform.Find("Equipment1")?.gameObject;
+        if (equipment == null)
+        {
+            return;
+        }
+        equipment.GetComponent<UnityEngine.UI.Image>().sprite = sprite;
+
+        // 将equipmentName实例化为装备对象
+        EquipmentBaseClass equipmentSerializableClass = (EquipmentBaseClass)Activator.CreateInstance(Type.GetType(equipmentName), new object[] { this });
+        if (equipmentSerializableClass == null)
+        {
+            Debug.LogError("equipmentBaseClass is null");
+            return;
+        }
+        AddEquipment(equipmentSerializableClass);
     }
 
     #endregion 展示区

@@ -14,8 +14,6 @@ public class NoFightState : IState
         Debug.Log(chessObject.ObjectName + " NoFightState Enter");
 
         chessObject.IsFight = false;
-        // 载入装备属性
-        chessObject.LoadEquipmentProperties();
     }
 
     public void Execute()

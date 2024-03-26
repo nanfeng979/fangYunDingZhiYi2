@@ -15,7 +15,9 @@ public class YunDingZhiYiBaseObject : MonoBehaviour
         }
     }
 
-    protected virtual void Start() { }
+    protected virtual void Start() { RegisterEvent(); }
 
     protected virtual void Update() { }
+
+    protected virtual void RegisterEvent() { }
 }

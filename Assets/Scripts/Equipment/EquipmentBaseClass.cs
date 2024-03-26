@@ -11,8 +11,10 @@ public class EquipmentBaseClass
     // 委托
     public delegate void EquipmentDelegate(ChessObject chessObject);
 
-    // 载入装备时的委托
+    // 刚装备上装备时的委托
     public EquipmentDelegate LoadEquipmentDelegate;
+    // 战斗开始时的委托
+    public EquipmentDelegate BattleStartDelegate;
     // 装备穿戴时的委托
     public EquipmentDelegate ExecuteEquipmentDelegate;
     // 装备卸下时的委托
