@@ -7,6 +7,7 @@ public class PropAreaBaseClass : YunDingZhiYiBaseObject
     private float mZCoord; // 道具的 z 坐标
     [SerializeField]
     protected Sprite sprite; // 道具的图片
+    private Vector3 oldPosition; // 道具的原始位置
 
     void OnMouseDown()
     {
@@ -15,6 +16,8 @@ public class PropAreaBaseClass : YunDingZhiYiBaseObject
 
         mOffset = gameObject.transform.position - GetMouseWorldPos();
         // 计算物体位置和鼠标点击位置的偏移量
+
+        oldPosition = gameObject.transform.position; // 保存道具的原始位置
     }
 
     private Vector3 GetMouseWorldPos()
@@ -37,5 +40,23 @@ public class PropAreaBaseClass : YunDingZhiYiBaseObject
     void OnMouseUp()
     {
         OnMouseUpAction?.Invoke();
+    }
+
+    // 将道具位置重置到原始位置
+    protected void ResetPosition()
+    {
+        transform.position = oldPosition;
+    }
+
+    // 道具被使用
+    public virtual void UseProp()
+    {
+        gameObject.SetActive(false);
+    }
+
+    // 道具没有被使用
+    public virtual void UnUseProp()
+    {
+        ResetPosition();
     }
 }

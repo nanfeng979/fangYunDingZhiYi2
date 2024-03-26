@@ -23,10 +23,12 @@ public class EquipmentCurrency : PropAreaBaseClass
         {
             if (hit.collider.GetComponent<ChessObject>())
             {
-                hit.collider.GetComponent<ChessObject>().AddEquipmentColumn(equipmentName, sprite);
-                gameObject.SetActive(false);
+                hit.collider.GetComponent<ChessObject>().AddEquipmentColumn(equipmentName, sprite, this);
                 break; // 匹配到第一个后就停止
             }
         }
+
+        // 将道具位置重置到原始位置
+        ResetPosition();
     }
 }
