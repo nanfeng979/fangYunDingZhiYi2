@@ -1,20 +1,25 @@
-public class FanjiaEquipment : EquipmentBaseClass
+using UnityEngine;
+
+public class Yinxue : EquipmentBaseClass
 {
-    public FanjiaEquipment(ChessObject chessObject) : base(chessObject) { }
+    public Yinxue(ChessObject chessObject) : base(chessObject) { }
 
     #region 生命周期
     // 载入装备
     public override void LoadEvent(ChessObject chessObject)
     {
-        objectName = "Fanjia";
+        objectName = "Yinxue";
         // 注册载入事件
-        LoadEquipmentDelegate += AddHP;
+        // LoadEquipmentDelegate += AddHP;
 
         // 注册主动事件
         // ExecuteEquipmentDelegate += ActiveEvent;
 
+        // 注册角色攻击事件
+        chessObject.AttackDelegate += AttackEvent;
+
         // 注册被攻击事件
-        chessObject.BeAttackedDelegate += BounceDamage;
+        // chessObject.BeAttackedDelegate += BounceDamage;
 
         base.LoadEvent(chessObject);
     }
@@ -28,16 +33,9 @@ public class FanjiaEquipment : EquipmentBaseClass
     #endregion 生命周期
 
     #region 功能函数区
-    // 增加血量
-    protected void AddHP(ChessObject chessObject)
+    protected void AttackEvent(ChessObject attackChessObject, float damageValue)
     {
-        chessObject.HP += 300;
-    }
-
-    // 被动事件测试
-    public void BounceDamage(ChessObject attackChessObject, float damageValue)
-    {
-        attackChessObject.HP -= damageValue * 0.1f;
+        attackChessObject.HP += damageValue * 0.1f;
     }
 
     #endregion 功能函数区

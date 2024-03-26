@@ -131,6 +131,7 @@ public class ChessObject : YunDingZhiYiBaseObject
             return;
         }
 
+        AttackDelegate?.Invoke(this, attack); // 攻击事件
         otherChessObject.BeAttacked(attack, this);
     }
 
@@ -254,6 +255,7 @@ public class ChessObject : YunDingZhiYiBaseObject
 
     #region 事件区
     // 委托
+    public Action<ChessObject, float> AttackDelegate; // 攻击事件
     public Action<ChessObject, float> BeAttackedDelegate; // 被攻击事件
 
     #endregion 事件区
