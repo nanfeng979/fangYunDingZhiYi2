@@ -11,6 +11,11 @@ public class PropAreaBaseClass : YunDingZhiYiBaseObject
 
     void OnMouseDown()
     {
+        if (!GameManager.Instance.IsBelongTo(belongTo))
+        {
+            return;
+        }
+
         mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
         // 将游戏对象的世界坐标转换成屏幕坐标
 
@@ -31,6 +36,11 @@ public class PropAreaBaseClass : YunDingZhiYiBaseObject
 
     void OnMouseDrag()
     {
+        if (!GameManager.Instance.IsBelongTo(belongTo))
+        {
+            return;
+        }
+
         transform.position = GetMouseWorldPos() + mOffset;
         // 更新物体的位置到鼠标的位置（考虑偏移量）
     }
@@ -39,6 +49,11 @@ public class PropAreaBaseClass : YunDingZhiYiBaseObject
     protected Action OnMouseUpAction;
     void OnMouseUp()
     {
+        if (!GameManager.Instance.IsBelongTo(belongTo))
+        {
+            return;
+        }
+        
         OnMouseUpAction?.Invoke();
     }
 
