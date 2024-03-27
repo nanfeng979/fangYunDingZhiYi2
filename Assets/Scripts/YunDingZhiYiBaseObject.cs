@@ -17,6 +17,17 @@ public class YunDingZhiYiBaseObject : MonoBehaviour
 
     [SerializeField]
     protected string belongTo; // 对象所属
+    public string BelongTo
+    {
+        get
+        {
+            return belongTo;
+        }
+        set
+        {
+            belongTo = value;
+        }
+    }
 
     protected virtual void Start() { RegisterEvent(); }
 

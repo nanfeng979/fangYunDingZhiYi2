@@ -3315,6 +3315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50888a8b96de8bc48856b99362b96c5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  belongTo: Player1
 --- !u!65 &6823204458068608499
 BoxCollider:
   m_ObjectHideFlags: 0

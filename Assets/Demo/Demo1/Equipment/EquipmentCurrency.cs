@@ -23,6 +23,12 @@ public class EquipmentCurrency : PropAreaBaseClass
         {
             if (hit.collider.GetComponent<ChessObject>())
             {
+                // 如果道具的所属不是当前玩家，则不进行操作
+                if (hit.collider.GetComponent<ChessObject>().BelongTo != belongTo)
+                {
+                    continue;
+                }
+
                 hit.collider.GetComponent<ChessObject>().AddEquipmentColumn(equipmentName, sprite, this);
                 break; // 匹配到第一个后就停止
             }

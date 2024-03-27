@@ -320,8 +320,8 @@ public class ChessObject : YunDingZhiYiBaseObject
         }
 
         // 添加装备
-        int index = equipmentList.Count + 1;
-        GameObject equipment = equipmentColumn.transform.Find("Equipment" + index)?.gameObject;
+        int equipmentColumnIndex = equipmentList.Count + 1;
+        GameObject equipment = equipmentColumn.transform.Find("Equipment" + equipmentColumnIndex)?.gameObject;
         if (equipment == null)
         {
             prop.UnUseProp();
@@ -340,6 +340,30 @@ public class ChessObject : YunDingZhiYiBaseObject
 
         AddEquipment(equipmentSerializableClass);
         prop.UseProp();
+        // 广播出去
+        string guangboContent = belongTo + ":"; // 所属
+        guangboContent += objectName + ":"; // 棋子对象
+        guangboContent += "AddEquipmentColumn:"; // 添加装备栏
+        guangboContent += equipmentColumnIndex + ":"; // 装备栏索引
+        guangboContent += equipmentName + ":"; // 装备名称
+
+        Guangbo.Instance._SendMessage(guangboContent);
+    }
+
+    public void AddEquipmentColumnOnlyShow(int equipmentColumnIndex, string equipmentName)
+    {
+        if (equipmentColumn == null)
+        {
+            return;
+        }
+
+        // 添加装备
+        GameObject equipment = equipmentColumn.transform.Find("Equipment" + equipmentColumnIndex)?.gameObject;
+        if (equipment == null)
+        {
+            return;
+        }
+        equipment.GetComponent<UnityEngine.UI.Image>().sprite = EquipmentSpriteMap.Instance.GetEquipmentSprite(equipmentName);
     }
 
     #endregion 展示区

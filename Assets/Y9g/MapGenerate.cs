@@ -172,7 +172,7 @@ namespace Y9g
 
             if (tools == "Save")
             {
-                UnityEditor.SaveToAssets(MapList, null);
+                // UnityEditor.SaveToAssets(MapList, null);
                 Debug.Log("Save MapList to Assets.");
             }
 
