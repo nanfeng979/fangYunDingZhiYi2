@@ -494,6 +494,8 @@ MonoBehaviour:
     value: {fileID: 2530120083000827349, guid: 2f8bc3cc437c00c46bb493ef46e9e8be, type: 3}
   - key: Wei
     value: {fileID: 7211620632419484860, guid: 8ad38c19617566d4baf393200225ee3a, type: 3}
+  - key: Ez
+    value: {fileID: 7211620632419484860, guid: d8448eab05acc0c4993dd751a197778c, type: 3}
 --- !u!4 &851352105
 Transform:
   m_ObjectHideFlags: 0

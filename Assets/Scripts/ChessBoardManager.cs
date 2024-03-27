@@ -39,7 +39,7 @@ public partial class ChessBoardManager : Singleton<ChessBoardManager>
 
     private void TempInit()
     {
-        AddChessObject(ChessObjectPrefabMap.Instance.GetPrefab("Jiqiren"), 2, 3); // 添加棋子到棋盘格子
+        AddChessObject(ChessObjectPrefabMap.Instance.GetPrefab("Ez"), 2, 3); // 添加棋子到棋盘格子
         AddChessObject(ChessObjectPrefabMap.Instance.GetPrefab("Wei"), 3, 3); // 添加棋子到棋盘格子
     }
 

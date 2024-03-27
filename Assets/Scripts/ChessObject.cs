@@ -131,7 +131,10 @@ public class ChessObject : YunDingZhiYiBaseObject
             return;
         }
 
-        AttackDelegate?.Invoke(this, attack); // 攻击事件
+        AttackDelegate?.Invoke(this, attack); // 执行攻击事件
+        PlayAnimation("Attack"); // 播放攻击动画
+        Debug.LogError(objectName + " AttackChessObject: " + otherChessObject.objectName + " attack: " + attack);
+
         otherChessObject.BeAttacked(attack, this);
     }
 
@@ -367,4 +370,23 @@ public class ChessObject : YunDingZhiYiBaseObject
     }
 
     #endregion 展示区
+
+    #region 动作区
+    [SerializeField]
+    protected Animator animator; // 动画控制器
+    protected void PlayAnimation(string animationName)
+    {
+        if (animator == null)
+        {
+            return;
+        }
+
+        animator.Play(animationName);
+    }
+
+    protected void PlayAttackAnimation()
+    {
+        animator.SetTrigger("isAttack");
+    }
+    #endregion 动作区
 }
