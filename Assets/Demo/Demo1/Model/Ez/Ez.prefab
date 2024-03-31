@@ -264,6 +264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   belongTo: Player2
   animator: {fileID: 6665782772408229045}
+  modelTransform: {fileID: 5812386119880956497}
 --- !u!65 &6823204458068608499
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -464,7 +465,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7095580308728834151, guid: 62ee9d1cf194ca84dbf7c2a458a1fac7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 255.4
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7095580308728834151, guid: 62ee9d1cf194ca84dbf7c2a458a1fac7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -570,7 +571,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8836355994460984941, guid: 5fffe8efa76bde94fa73f56560201fd1, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 189
+      value: 230
       objectReference: {fileID: 0}
     - target: {fileID: 8836355994460984941, guid: 5fffe8efa76bde94fa73f56560201fd1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

@@ -16,7 +16,7 @@ public class FanjiaEquipment : EquipmentBaseClass
         // ExecuteEquipmentDelegate += Test;
 
         // 注册被攻击事件
-        chessObject.BeAttackedDelegate += BounceDamage;
+        chessObject.OnBeNormalAttacked += BounceDamage;
     }
 
     #region 生命周期

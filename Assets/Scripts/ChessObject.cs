@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChessObject : YunDingZhiYiBaseObject
 {
@@ -75,8 +76,7 @@ public class ChessObject : YunDingZhiYiBaseObject
 
         SetState(new NoFightState(this)); // 默认状态
 
-        LoadHealthBar(); // 载入血条
-        LoadEquipmentColumn(); // 载入装备栏
+        LoadUI(); // 加载UI
     }
 
     protected override void Update()
@@ -123,26 +123,26 @@ public class ChessObject : YunDingZhiYiBaseObject
         return ChessBoardManager.Instance.GetChessObjectBySurroundingChessObjectWithRandom(vector2IntIndex);
     }
 
-    // 普通攻击 // 逻辑层面
-    private void NormalAttackLogic(ChessObject otherChessObject)
+    /// <summary>
+    /// 普通攻击 // 逻辑层面
+    /// </summary>
+    /// <param name="beAttackedChessObject"></param>
+    private void NormalAttackLogic(ChessObject beAttackedChessObject)
     {
         OnNormalAttack?.Invoke(this, attack); // 执行攻击事件
-        otherChessObject.BeAttacked(attack, this); // 被攻击对象受到攻击
+        beAttackedChessObject.BeNormalAttackedFun(this, attack); // 被攻击对象受到攻击
     }
 
-    // 被攻击
-    public void BeAttacked(float attack, ChessObject attackChessObject)
+    /// <summary>
+    /// 被普通攻击 // 逻辑层面
+    /// </summary>
+    /// <param name="damageValue"></param>
+    /// <param name="attackChessObject"></param>
+    public void BeNormalAttackedLogic(ChessObject attackChessObject, float damageValue)
     {
-        BeAttackedDelegate?.Invoke(attackChessObject, attack); // 被攻击事件
+        OnBeNormalAttacked?.Invoke(attackChessObject, damageValue); // 执行被攻击事件
 
-        hp -= attack;
-
-        Debug.LogError(objectName + " BeAttacked hp: " + hp);
-
-        if (hp <= 0)
-        {
-            Die();
-        }
+        ReduceHpFun(damageValue); // 扣除生命值
     }
 
     // 死亡
@@ -242,11 +242,19 @@ public class ChessObject : YunDingZhiYiBaseObject
     #region 事件区
     // 委托
     public Action<ChessObject, float> OnNormalAttack; // 攻击事件
-    public Action<ChessObject, float> BeAttackedDelegate; // 被攻击事件
+    public Action<ChessObject, float> OnBeNormalAttacked; // 被攻击事件
 
     #endregion 事件区
 
     #region 展示区
+    // 加载UI函数
+    private void LoadUI()
+    {
+        LoadHealthBar(); // 加载血条
+        LoadEquipmentColumn(); // 加载装备栏
+        LoadReduceHpText(); // 加载扣除的血量UI
+    }
+
     // 血条
     protected GameObject healthBar; // 血条
     /// <summary>
@@ -274,7 +282,7 @@ public class ChessObject : YunDingZhiYiBaseObject
             return;
         }
 
-        UnityEngine.UI.Image healthBarImage = healthBar.GetComponent<UnityEngine.UI.Image>();
+        Image healthBarImage = healthBar.GetComponent<Image>();
         healthBarImage.fillAmount = hp / maxHp;
     }
 
@@ -345,6 +353,11 @@ public class ChessObject : YunDingZhiYiBaseObject
         Guangbo.Instance._SendMessage(guangboContent);
     }
 
+    /// <summary>
+    /// 添加装备栏，用途只有展示
+    /// </summary>
+    /// <param name="equipmentColumnIndex"></param>
+    /// <param name="equipmentName"></param>
     public void AddEquipmentColumnOnlyShow(int equipmentColumnIndex, string equipmentName)
     {
         if (equipmentColumn == null)
@@ -359,6 +372,28 @@ public class ChessObject : YunDingZhiYiBaseObject
             return;
         }
         equipment.GetComponent<UnityEngine.UI.Image>().sprite = EquipmentSpriteMap.Instance.GetEquipmentSprite(equipmentName);
+    }
+
+    // 扣除的血量
+    protected Text reduceHpText; // 扣除的血量
+    /// <summary>
+    /// 载入扣除的血量UI
+    /// </summary>
+    protected void LoadReduceHpText()
+    {
+        Transform canvas = transform.Find("Canvas");
+        if (canvas != null)
+        {
+            reduceHpText = canvas.Find("ReduceHp")?.GetComponent<Text>();
+            if (reduceHpText == null)
+            {
+                Debug.LogError("reduceHpText is null at just start");
+            }
+            else
+            {
+                reduceHpText.gameObject.SetActive(false); // 默认隐藏
+            }
+        }
     }
 
     #endregion 展示区
@@ -378,21 +413,21 @@ public class ChessObject : YunDingZhiYiBaseObject
 
     #endregion 动作动画区
 
-    #region 功能区
+    #region 玩法区
     /// <summary>
     /// 普通攻击功能函数
     /// </summary>
-    /// <param name="otherChessObject"></param>
-    public virtual void NormalAttackFun(ChessObject otherChessObject)
+    /// <param name="beAttackedChessObject"></param>
+    public virtual void NormalAttackFun(ChessObject beAttackedChessObject)
     {
         // 当被攻击对象为空或者已经死亡时
-        if (otherChessObject.isDead || otherChessObject == null)
+        if (beAttackedChessObject.isDead || beAttackedChessObject == null)
         {
             return;
         }
 
-        NormalAttackLogic(otherChessObject); // 普通攻击逻辑
-        NormalAttackAnimation(); // 普通攻击动画
+        NormalAttackLogic(beAttackedChessObject); // 普通攻击逻辑
+        NormalAttackAnimation(beAttackedChessObject); // 普通攻击动画
     }
 
     /// <summary>
@@ -406,15 +441,99 @@ public class ChessObject : YunDingZhiYiBaseObject
         Debug.LogError(objectName + " RestoredHpFun hp: " + hp);
     }
 
-    #endregion 状态实现区
+    /// <summary>
+    /// 扣除生命值功能函数
+    /// </summary>
+    /// <param name="reduceHpValue"></param>
+    protected virtual void ReduceHpFun(float reduceHpValue)
+    {
+        hp -= reduceHpValue;
+        // Debug.LogError(objectName + " ReduceHpFun hp: " + hp);
+
+        ShowReduceHpText(reduceHpValue, 0.5f); // 显示扣除的血量
+    }
+
+    // 显示扣除的血量
+    public void ShowReduceHpText(float reduceHpValue, float showTime = 1f)
+    {
+        if (reduceHpText == null)
+        {
+            Debug.LogError("reduceHpText is null");
+            return;
+        }
+
+        reduceHpText.text = "-" + reduceHpValue;
+        reduceHpText.gameObject.SetActive(true);
+        Invoke("HideReduceHpText", showTime);
+    }
+
+    // 隐藏扣除的血量
+    public void HideReduceHpText()
+    {
+        reduceHpText.gameObject?.SetActive(false);
+    }
+
+    /// <summary>
+    /// 被普通攻击功能函数
+    /// </summary>
+    /// <param name="attackChessObject"></param>
+    /// <param name="beAttackedValue"></param>
+    protected virtual void BeNormalAttackedFun(ChessObject attackChessObject, float beAttackedValue)
+    {
+        if (isDead)
+        {
+            return;
+        }
+
+        BeNormalAttackedLogic(attackChessObject, beAttackedValue); // 被普通攻击逻辑
+
+        if (hp <= 0)
+        {
+            Die();
+        }
+    }
+
+    /// <summary>
+    /// 朝向另一个对象
+    /// </summary>
+    /// <param name="otherChessObject"></param>
+    [SerializeField]
+    protected Transform modelTransform; // 模型Transform
+    public Transform ModelTransform
+    {
+        get
+        {
+            return modelTransform;
+        }
+    }
+    private void LookAtTo(ChessObject otherChessObject)
+    {
+        if (modelTransform == null)
+        {
+            Debug.LogError("modelTransform is null");
+            return;
+        }
+
+        if (otherChessObject.ModelTransform == null)
+        {
+            Debug.LogError("otherChessObject.ModelTransform is null");
+            return;
+        }
+
+        modelTransform.LookAt(otherChessObject.ModelTransform.transform);
+    }
+
+    #endregion 玩法区
 
     #region 动画区
     /// <summary>
     /// 普通攻击动画
     /// </summary>
-    private void NormalAttackAnimation()
+    private void NormalAttackAnimation(ChessObject beAttackedChessObject)
     {
         animator.SetTrigger("isAttack"); // 播放攻击动画
+
+        LookAtTo(beAttackedChessObject); // 朝向被攻击对象
     }
     #endregion 动画区
 }
