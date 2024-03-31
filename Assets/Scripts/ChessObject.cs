@@ -123,19 +123,11 @@ public class ChessObject : YunDingZhiYiBaseObject
         return ChessBoardManager.Instance.GetChessObjectBySurroundingChessObjectWithRandom(vector2IntIndex);
     }
 
-    // 攻击
-    public void AttackChessObject(ChessObject otherChessObject)
+    // 普通攻击 // 逻辑层面
+    private void NormalAttackLogic(ChessObject otherChessObject)
     {
-        if (otherChessObject.isDead)
-        {
-            return;
-        }
-
-        AttackDelegate?.Invoke(this, attack); // 执行攻击事件
-        PlayAnimation("Attack"); // 播放攻击动画
-        Debug.LogError(objectName + " AttackChessObject: " + otherChessObject.objectName + " attack: " + attack);
-
-        otherChessObject.BeAttacked(attack, this);
+        OnNormalAttack?.Invoke(this, attack); // 执行攻击事件
+        otherChessObject.BeAttacked(attack, this); // 被攻击对象受到攻击
     }
 
     // 被攻击
@@ -249,7 +241,7 @@ public class ChessObject : YunDingZhiYiBaseObject
 
     #region 事件区
     // 委托
-    public Action<ChessObject, float> AttackDelegate; // 攻击事件
+    public Action<ChessObject, float> OnNormalAttack; // 攻击事件
     public Action<ChessObject, float> BeAttackedDelegate; // 被攻击事件
 
     #endregion 事件区
@@ -371,7 +363,7 @@ public class ChessObject : YunDingZhiYiBaseObject
 
     #endregion 展示区
 
-    #region 动作区
+    #region 动作动画区
     [SerializeField]
     protected Animator animator; // 动画控制器
     protected void PlayAnimation(string animationName)
@@ -384,9 +376,45 @@ public class ChessObject : YunDingZhiYiBaseObject
         animator.Play(animationName);
     }
 
-    protected void PlayAttackAnimation()
+    #endregion 动作动画区
+
+    #region 功能区
+    /// <summary>
+    /// 普通攻击功能函数
+    /// </summary>
+    /// <param name="otherChessObject"></param>
+    public virtual void NormalAttackFun(ChessObject otherChessObject)
     {
-        animator.SetTrigger("isAttack");
+        // 当被攻击对象为空或者已经死亡时
+        if (otherChessObject.isDead || otherChessObject == null)
+        {
+            return;
+        }
+
+        NormalAttackLogic(otherChessObject); // 普通攻击逻辑
+        NormalAttackAnimation(); // 普通攻击动画
     }
-    #endregion 动作区
+
+    /// <summary>
+    /// 恢复生命值功能函数
+    /// </summary>
+    /// <param name="selfObject"></param>
+    /// <param name="restoreHpValue"></param>
+    public virtual void RestoredHpFun(float restoreHpValue)
+    {
+        HP += restoreHpValue;
+        Debug.LogError(objectName + " RestoredHpFun hp: " + hp);
+    }
+
+    #endregion 状态实现区
+
+    #region 动画区
+    /// <summary>
+    /// 普通攻击动画
+    /// </summary>
+    private void NormalAttackAnimation()
+    {
+        animator.SetTrigger("isAttack"); // 播放攻击动画
+    }
+    #endregion 动画区
 }

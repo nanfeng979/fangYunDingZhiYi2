@@ -34,7 +34,7 @@ public class AttackState : IState
         if (aroundChessObject != null)
         {
             // 攻击周围的棋子对象
-            chessObject.AttackChessObject(aroundChessObject);
+            chessObject.NormalAttackFun(aroundChessObject);
         }
 
         string str;

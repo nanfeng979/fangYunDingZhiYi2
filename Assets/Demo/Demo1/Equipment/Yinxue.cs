@@ -10,7 +10,7 @@ public class Yinxue : EquipmentBaseClass
     protected override void DefineEvent()
     {
         // 注册角色攻击事件
-        chessObject.AttackDelegate += AttackEvent;
+        chessObject.OnNormalAttack += NormalAttack_RestoreHP;
 
         // 注册主动事件
         // ExecuteEquipmentDelegate += Test;
@@ -27,9 +27,9 @@ public class Yinxue : EquipmentBaseClass
 
     #region 功能函数区
     // 角色攻击事件
-    protected void AttackEvent(ChessObject attackChessObject, float damageValue)
+    protected void NormalAttack_RestoreHP(ChessObject selfObject, float selfNormalAttackValue)
     {
-        attackChessObject.HP += 100;
+        selfObject.RestoredHpFun(selfNormalAttackValue * 0.1f);
     }
 
     // 主动测试
