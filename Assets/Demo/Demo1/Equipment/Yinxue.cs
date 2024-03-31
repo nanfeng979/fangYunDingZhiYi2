@@ -9,19 +9,12 @@ public class Yinxue : EquipmentBaseClass
 
     protected override void DefineEvent()
     {
-        // 注册角色攻击事件
-        chessObject.OnNormalAttack += NormalAttack_RestoreHP;
-
-        // 注册主动事件
-        // ExecuteEquipmentDelegate += Test;
+        // 登记拥有者普通攻击时的事件
+        owner.OnNormalAttack += NormalAttack_RestoreHP;
     }
 
     #region 生命周期
-    // 执行装备
-    public override void ExecuteEvent(ChessObject chessObject)
-    {
-        base.ExecuteEvent(chessObject);
-    }
+    
 
     #endregion 生命周期
 

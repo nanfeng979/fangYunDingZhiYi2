@@ -1,11 +1,11 @@
 public abstract class EquipmentBaseClass
 {
     protected string propertyName = "默认装备"; // 装备名称
-    protected ChessObject chessObject; // 拥有者
+    protected ChessObject owner; // 拥有者
 
     public EquipmentBaseClass(ChessObject chessObject)
     {
-        this.chessObject = chessObject;
+        owner = chessObject;
         
         DefineProperty();
         DefineEvent();
@@ -17,27 +17,30 @@ public abstract class EquipmentBaseClass
     protected abstract void DefineEvent(); // 强制子类定义事件
 
     // 委托
-    public delegate void EquipmentDelegate(ChessObject chessObject);
+    // 装备的生命周期
+    public delegate void EquipmentLifeCycle(ChessObject chessObject); // 装备生命周期
 
-    // 载入装备时的委托
-    public EquipmentDelegate LoadEquipmentDelegate;
-    // 战斗开始时的委托
-    public EquipmentDelegate BattleStartDelegate;
-    // 装备穿戴时的委托
-    public EquipmentDelegate ExecuteEquipmentDelegate;
+    // 装备戴上时的委托
+    public EquipmentLifeCycle OnWear;
     // 装备卸下时的委托
-    public EquipmentDelegate UnWearEquipmentDelegate;
+    public EquipmentLifeCycle OnUnWear;
+    // 战斗开始时的委托
+    public EquipmentLifeCycle OnBattleStart;
+    // 战斗进行时的委托
+    public EquipmentLifeCycle OnBattleUpdate;
+    // 战斗结束时的委托
+    public EquipmentLifeCycle OnBattleEnd;
 
 
-    // 载入装备事件
-    public virtual void LoadEvent(ChessObject chessObject)
+    // 执行装备戴上时的事件
+    public virtual void OnWearEvent(ChessObject chessObject)
     {
-        LoadEquipmentDelegate?.Invoke(chessObject);
+        OnWear?.Invoke(chessObject);
     }
 
-    // 执行装备事件
-    public virtual void ExecuteEvent(ChessObject chessObject)
+    // 执行战斗进行时的事件
+    public virtual void DoBattleUpdateEvent(ChessObject chessObject)
     {
-        ExecuteEquipmentDelegate?.Invoke(chessObject);
+        OnBattleUpdate?.Invoke(chessObject);
     }
 }

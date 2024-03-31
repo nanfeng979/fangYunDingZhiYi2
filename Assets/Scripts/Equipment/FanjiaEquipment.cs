@@ -9,22 +9,14 @@ public class FanjiaEquipment : EquipmentBaseClass
 
     protected override void DefineEvent()
     {
-        // 注册载入事件
-        LoadEquipmentDelegate += AddHP;
+        // 登记装备戴上时的事件
+        OnWear += AddHP;
 
-        // 注册主动事件
-        // ExecuteEquipmentDelegate += Test;
-
-        // 注册被攻击事件
-        chessObject.OnBeNormalAttacked += BounceDamage;
+        // 登记拥有者被攻击时的事件
+        owner.OnBeNormalAttacked += BounceDamage;
     }
 
     #region 生命周期
-    // 执行装备
-    public override void ExecuteEvent(ChessObject chessObject)
-    {
-        base.ExecuteEvent(chessObject);
-    }
 
     #endregion 生命周期
 

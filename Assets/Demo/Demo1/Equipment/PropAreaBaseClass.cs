@@ -69,8 +69,8 @@ public class PropAreaBaseClass : YunDingZhiYiBaseObject
         gameObject.SetActive(false);
     }
 
-    // 道具没有被使用
-    public virtual void UnUseProp()
+    // 道具取消被使用
+    public virtual void CancelUseProp()
     {
         ResetPosition();
     }

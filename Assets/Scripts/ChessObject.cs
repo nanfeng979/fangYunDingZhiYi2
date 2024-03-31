@@ -101,10 +101,10 @@ public partial class ChessObject : YunDingZhiYiBaseObject
         // 战斗时
         if (IsFight)
         {
-            // 执行装备主动事件
+            // 执行装备的战斗进行时事件
             foreach (var equipment in equipmentList)
             {
-                equipment.ExecuteEvent(this);
+                equipment.DoBattleUpdateEvent(this);
             }
 
             // 更新血条

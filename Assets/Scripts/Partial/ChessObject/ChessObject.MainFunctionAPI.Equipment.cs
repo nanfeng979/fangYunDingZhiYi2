@@ -9,8 +9,8 @@ public partial class ChessObject
     /// <param name="equipment"></param>
     protected void AddEquipment(EquipmentBaseClass equipment)
     {
-        equipment.LoadEvent(this);
-        equipmentList.Add(equipment);
+        equipment.OnWearEvent(this); // 执行装备戴上时的事件
+        equipmentList.Add(equipment); // 在装备列表中添加装备
     }
 
     /// <summary>
@@ -19,7 +19,7 @@ public partial class ChessObject
     /// <param name="equipment"></param>
     protected void RemoveEquipment(EquipmentBaseClass equipment)
     {
-        equipmentList.Remove(equipment);
+        equipmentList.Remove(equipment); // 在装备列表中移除装备
     }
 
     /// <summary>
@@ -32,21 +32,21 @@ public partial class ChessObject
     {
         if (equipmentColumn == null)
         {
-            prop.UnUseProp();
+            prop.CancelUseProp(); // 取消使用道具
             Debug.LogError("equipmentColumn is null");
             return;
         }
 
         if (equipmentColumn == null)
         {
-            prop.UnUseProp();
+            prop.CancelUseProp(); // 取消使用道具
             Debug.LogError("equipmentColumn is null");
             return;
         }
 
         if (equipmentList.Count >= 3)
         {
-            prop.UnUseProp();
+            prop.CancelUseProp(); // 取消使用道具
             Debug.LogError("equipmentList.Count >= 3");
             return;
         }
@@ -56,7 +56,7 @@ public partial class ChessObject
         GameObject equipment = equipmentColumn.transform.Find("Equipment" + equipmentColumnIndex)?.gameObject;
         if (equipment == null)
         {
-            prop.UnUseProp();
+            prop.CancelUseProp(); // 取消使用道具
             return;
         }
         equipment.GetComponent<UnityEngine.UI.Image>().sprite = sprite;
@@ -65,13 +65,13 @@ public partial class ChessObject
         EquipmentBaseClass equipmentSerializableClass = Y9g.Utils.InstanceClassByString<EquipmentBaseClass>(equipmentName, new object[] { this });
         if (equipmentSerializableClass == null)
         {
-            prop.UnUseProp();
+            prop.CancelUseProp(); // 取消使用道具
             Debug.LogError("equipmentBaseClass is null");
             return;
         }
 
         AddEquipment(equipmentSerializableClass);
-        prop.UseProp();
+        prop.UseProp(); // 使用道具
         // 广播出去
         string guangboContent = belongTo + ":"; // 所属
         guangboContent += objectName + ":"; // 棋子对象
@@ -79,7 +79,7 @@ public partial class ChessObject
         guangboContent += equipmentColumnIndex + ":"; // 装备栏索引
         guangboContent += equipmentName + ":"; // 装备名称
 
-        Guangbo.Instance._SendMessage(guangboContent);
+        Guangbo.Instance._SendMessage(guangboContent); // 广播
     }
 
     /// <summary>
