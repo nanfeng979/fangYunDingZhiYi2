@@ -82,7 +82,29 @@ public partial class ChessObject
 
         if (hp <= 0)
         {
-            Die();
+            Die(); // 死亡
+        }
+    }
+
+    /// <summary>
+    /// 增加攻击速度
+    /// </summary>
+    /// <param name="attackSpeedValue"></param>
+    public virtual void AddAttackSpeedFun(float attackSpeedValue)
+    {
+        if (attackSpeed + attackSpeedValue < 0)
+        {
+            attackSpeed = 0;
+            return;
+        }
+        else if (attackSpeed + attackSpeedValue > maxAttackSpeed)
+        {
+            attackSpeed = maxAttackSpeed;
+            return;
+        }
+        else
+        {
+            attackSpeed += attackSpeedValue;
         }
     }
 

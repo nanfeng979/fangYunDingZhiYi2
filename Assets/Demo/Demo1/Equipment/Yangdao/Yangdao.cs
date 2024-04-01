@@ -15,19 +15,28 @@ public class Yangdao : EquipmentBaseClass
 
         // 登记装备卸下时的事件
         OnUnWear += RemoveSpeddPower;
+
+        // 登记玩家普通攻击时的事件
+        owner.OnNormalAttack += AddAttackSpeed;
     }
 
     #region 生命周期
     // 增加法强
     private void AddSpeddPower(ChessObject chessObject)
     {
-        chessObject.SpellPower += 99f;
+        owner.SpellPower += 99f;
     }
 
     // 减少法强
     private void RemoveSpeddPower(ChessObject chessObject)
     {
-        chessObject.SpellPower -= 99f;
+        owner.SpellPower -= 99f;
+    }
+
+    // 不断地增加攻击速度
+    private void AddAttackSpeed(ChessObject chessObject, float attackValue)
+    {
+        owner.AddAttackSpeedFun(0.3f);
     }
 
     #endregion 生命周期

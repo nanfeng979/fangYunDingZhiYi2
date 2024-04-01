@@ -4,7 +4,6 @@ public class AttackState : IState
 {
     private ChessObject chessObject;
 
-    private float attackSpeed; // 攻击速度
     private float timeBetweenAttacks; // 攻击间隔
 
     public AttackState(ChessObject chessObject)
@@ -14,7 +13,6 @@ public class AttackState : IState
 
     public void Enter()
     {
-        attackSpeed = chessObject.AttackSpeed == 0 ? 1 : chessObject.AttackSpeed; // 设置攻击速度
         chessObject.IsFight = true; // 设置为战斗状态
 
         Debug.Log(chessObject.ObjectName + " AttackState Enter");
@@ -22,15 +20,16 @@ public class AttackState : IState
 
     public void Execute()
     {
+        float attackSpeed = chessObject.AttackSpeed == 0 ? 1 : chessObject.AttackSpeed; // 设置攻击速度
+
         // 攻击速度判定
         timeBetweenAttacks += Time.deltaTime;
         if (timeBetweenAttacks < 1 / attackSpeed)
         {
             return;
         }
-
         timeBetweenAttacks = 0;
-
+        
         // 获取周围的棋子对象
         ChessObject aroundChessObject = chessObject.GetSurroundingChessObject();
         if (aroundChessObject != null)

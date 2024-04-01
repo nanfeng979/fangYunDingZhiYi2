@@ -45,6 +45,7 @@ public partial class ChessObject
     // 死亡
     public void Die()
     {
-        SetState(new DeadState(this));
+        isDead = true; // 设置为死亡状态
+        SetState(new DeadState(this)); // 进入死亡状态
     }
 }

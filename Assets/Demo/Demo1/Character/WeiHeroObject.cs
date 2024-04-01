@@ -18,8 +18,8 @@ public class WeiHeroObject : ChessObject
 
         objectID = 56;
         objectName = "Wei";
-        HP += 100;
+        HP += 400;
         Attack += 10;
-        MaxHp = HP;
+        MaxHp = HP; 
     }
 }

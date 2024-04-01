@@ -1,12 +1,12 @@
 public class EzHeroObject : ChessObject
 {
-    protected override void Start()
+    protected override void TempInit()
     {
-        base.Start();
+        base.TempInit();
 
         objectName = "Ez";
-        HP += 100;
-        Attack += 10;
+        HP += 300;
+        Attack += 12;
         MaxHp = HP;
     }
 }

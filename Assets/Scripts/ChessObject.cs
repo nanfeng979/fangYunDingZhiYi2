@@ -56,16 +56,28 @@ public partial class ChessObject : YunDingZhiYiBaseObject, ChessObject_NetWork_I
             attack = value;
         }
     }
-    protected float attackSpped; // 攻击速度
+    protected float attackSpeed; // 攻击速度
     public float AttackSpeed
     {
         get
         {
-            return attackSpped;
+            return attackSpeed;
         }
         set
         {
-            attackSpped = value;
+            attackSpeed = value;
+        }
+    }
+    protected float maxAttackSpeed; // 最大攻击速度
+    public float MaxAttackSpeed
+    {
+        get
+        {
+            return maxAttackSpeed;
+        }
+        set
+        {
+            maxAttackSpeed = value;
         }
     }
     protected float spellPower; // 法强
@@ -131,6 +143,7 @@ public partial class ChessObject : YunDingZhiYiBaseObject, ChessObject_NetWork_I
 
         objectType = YunDingZhiYiBaseObjectType.Chess;
         AttackSpeed = 1;
+        MaxAttackSpeed = 2.5f;
     }
 
     #region 状态区
