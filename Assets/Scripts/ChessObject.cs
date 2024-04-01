@@ -154,11 +154,10 @@ public partial class ChessObject : YunDingZhiYiBaseObject
     #endregion 事件区
 
     #region UI区
+    protected Transform canvas; // 画布
     protected GameObject healthBar; // 血条
 
     protected GameObject equipmentColumn; // 装备栏
-
-    protected Text reduceHpText; // 扣除的血量
 
     #endregion UI区
 

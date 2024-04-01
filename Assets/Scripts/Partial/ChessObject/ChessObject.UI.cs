@@ -7,9 +7,21 @@ public partial class ChessObject
     // 加载UI函数
     private void LoadUI()
     {
+        LoadCanvas(); // 加载画布
         LoadHealthBar(); // 加载血条
         LoadEquipmentColumn(); // 加载装备栏
-        LoadReduceHpText(); // 加载扣除的血量UI
+    }
+
+    /// <summary>
+    /// 载入画布
+    /// </summary>
+    protected void LoadCanvas()
+    {
+        canvas = transform.Find("Canvas");
+        if (canvas == null)
+        {
+            Debug.LogError("Canvas is null");
+        }
     }
 
     /// <summary>
@@ -17,7 +29,6 @@ public partial class ChessObject
     /// </summary>
     protected void LoadHealthBar()
     {
-        Transform canvas = transform.Find("Canvas");
         if (canvas != null)
         {
             Transform healthBarBackground = canvas.Find("HealthBarBackground");
@@ -46,7 +57,6 @@ public partial class ChessObject
     /// </summary>
     protected void LoadEquipmentColumn()
     {
-        Transform canvas = transform.Find("Canvas");
         if (canvas != null)
         {
             equipmentColumn = canvas.Find("EquipmentColumn")?.gameObject;
@@ -54,63 +64,39 @@ public partial class ChessObject
     }
 
     /// <summary>
-    /// 载入扣除的血量UI
-    /// </summary>
-    protected void LoadReduceHpText()
-    {
-        Transform canvas = transform.Find("Canvas");
-        if (canvas != null)
-        {
-            reduceHpText = canvas.Find("ReduceHp")?.GetComponent<Text>();
-            if (reduceHpText == null)
-            {
-                Debug.LogError("reduceHpText is null at just start");
-            }
-            else
-            {
-                reduceHpText.gameObject.SetActive(false); // 默认隐藏
-            }
-        }
-    }
-
-    /// <summary>
-    /// 显示扣除的血量
+    /// 显示减少的血量
     /// </summary>
     /// <param name="reduceHpValue"></param>
-    /// <param name="showTime"></param>
-    public void ShowReduceHpText(float reduceHpValue, float showTime = 1f)
+    protected void ShowReduceHP(float reduceHpValue)
     {
-        if (reduceHpText == null)
+        if (canvas != null)
         {
-            Debug.LogError("reduceHpText is null");
-            return;
+            Transform loseHP = canvas.Find("ShowHPEffect");
+            if (loseHP != null)
+            {
+                GameObject obj = HPObjectPool.Instance.GetObject(loseHP);
+                obj.GetComponent<RectTransform>().localPosition = new Vector3(0, 0, 0);
+                HPObjectPool.Instance.LoseHp(obj, reduceHpValue);
+            }
         }
-
-        reduceHpText.text = "-" + reduceHpValue;
-        reduceHpText.color = Color.red;
-        reduceHpText.gameObject.SetActive(true);
-        Invoke(nameof(HideReduceHpText), showTime);
     }
 
     /// <summary>
-    /// 隐藏扣除的血量
+    /// 显示恢复的血量
     /// </summary>
-    public void HideReduceHpText()
+    /// <param name="restoreHpValue"></param>
+    /// <param name="showTime"></param>
+    protected void ShowRestoreHp(float restoreHpValue)
     {
-        reduceHpText.gameObject?.SetActive(false);
-    }
-
-    protected void ShowLoseHP(float damage)
-    {
-        Transform canvas = transform.Find("Canvas");
         if (canvas != null)
         {
-            Transform loseHP = canvas.Find("ShowLoseHP");
-            if (loseHP != null)
+            Transform restoreHP = canvas.Find("ShowHPEffect");
+            if (restoreHP != null)
             {
-                HPObjectPool.Instance.GetObject(loseHP, damage);
+                GameObject obj = HPObjectPool.Instance.GetObject(restoreHP);
+                obj.GetComponent<RectTransform>().localPosition = new Vector3(40f, 0, 0);
+                HPObjectPool.Instance.RecoverHp(obj, restoreHpValue);
             }
         }
-        
     }
 }

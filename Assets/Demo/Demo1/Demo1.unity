@@ -437,7 +437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c6b485c76eecdd4fb990e88b35e292a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loseHPPrefab: {fileID: 2328904258042907534, guid: 13d35cf6eae8f4044ac45e6d15d21cdb, type: 3}
+  HPPrefab: {fileID: 2328904258042907534, guid: 13d35cf6eae8f4044ac45e6d15d21cdb, type: 3}
 --- !u!4 &674022453
 Transform:
   m_ObjectHideFlags: 0

@@ -20,3 +20,9 @@ public enum LeftOrRight
     Left,
     Right
 }
+
+public enum HPUIType
+{
+    ReduceHP,
+    RestoreHP
+}
