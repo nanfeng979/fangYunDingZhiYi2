@@ -87,6 +87,7 @@ public partial class ChessObject
         }
 
         reduceHpText.text = "-" + reduceHpValue;
+        reduceHpText.color = Color.red;
         reduceHpText.gameObject.SetActive(true);
         Invoke(nameof(HideReduceHpText), showTime);
     }
@@ -97,5 +98,19 @@ public partial class ChessObject
     public void HideReduceHpText()
     {
         reduceHpText.gameObject?.SetActive(false);
+    }
+
+    protected void ShowLoseHP(float damage)
+    {
+        Transform canvas = transform.Find("Canvas");
+        if (canvas != null)
+        {
+            Transform loseHP = canvas.Find("ShowLoseHP");
+            if (loseHP != null)
+            {
+                HPObjectPool.Instance.GetObject(loseHP, damage);
+            }
+        }
+        
     }
 }

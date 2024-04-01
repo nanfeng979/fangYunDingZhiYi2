@@ -61,7 +61,8 @@ public partial class ChessObject
         hp -= reduceHpValue;
         // Debug.LogError(objectName + " ReduceHpFun hp: " + hp);
 
-        ShowReduceHpText(reduceHpValue, 0.5f); // 显示扣除的血量
+        // ShowReduceHpText(reduceHpValue, 0.5f); // 显示扣除的血量
+        ShowLoseHP(reduceHpValue); // 显示掉血效果
     }
 
     /// <summary>

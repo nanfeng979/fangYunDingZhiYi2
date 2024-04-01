@@ -34,6 +34,7 @@ RectTransform:
   - {fileID: 341621714785495946}
   - {fileID: 1302937127298568258}
   - {fileID: 3864104522489820717}
+  - {fileID: 2437773917271573347}
   m_Father: {fileID: 3016802511275047109}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -186,6 +187,36 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4765785271182510995}
   m_Enabled: 1
+--- !u!1 &6378406041897494954
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2437773917271573347}
+  m_Layer: 0
+  m_Name: ShowLoseHP
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2437773917271573347
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6378406041897494954}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 100, y: 86, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7820169391227418824}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6620976232934277355
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,8 +295,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   belongTo: Player1
-  animator: {fileID: 2751777247877657328}
   modelTransform: {fileID: 5812386119880956497}
+  animator: {fileID: 2751777247877657328}
 --- !u!65 &6823204458068608499
 BoxCollider:
   m_ObjectHideFlags: 0
