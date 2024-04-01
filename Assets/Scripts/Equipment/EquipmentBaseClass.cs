@@ -4,6 +4,8 @@ public abstract class EquipmentBaseClass
     protected ChessObject owner; // 拥有者
     protected bool isBaseEquipment = false; // 是否是基础装备
     public bool IsBaseEquipment { get { return isBaseEquipment; } }
+    protected int idOfBaseEquipment = 0; // 基础装备的ID
+    public int IdOfBaseEquipment { get { return idOfBaseEquipment; } }
 
     public EquipmentBaseClass(ChessObject chessObject)
     {

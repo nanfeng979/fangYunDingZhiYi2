@@ -3,7 +3,7 @@ using UnityEngine;
 
 public partial class ChessObject
 {
-    private int indexOfBaseEquipment = -1; // 基础装备的索引
+    private int indexOfBaseEquipmentInEquipmentList = -1; // 基础装备在装备栏中的索引
 
     /// <summary>
     /// 添加装备
@@ -67,20 +67,23 @@ public partial class ChessObject
         bool isBaseEquipment = equipmentSerializableClass.IsBaseEquipment;
 
         // 添加装备
-        // 获取装备栏索引
+        // 装备栏索引
         int equipmentColumnIndex;
-        // 是基础装备，且已经有基础装备，合成装备
-        if (isBaseEquipment && indexOfBaseEquipment != -1)
+        // 旧基础装备ID
+        int oldBaseEquipmentId = 0;
+        // 是基础装备，且已经有基础装备，<合成装备>
+        if (isBaseEquipment && indexOfBaseEquipmentInEquipmentList != -1)
         {
-            Debug.Log(indexOfBaseEquipment);
-            equipmentColumnIndex = indexOfBaseEquipment;
+            equipmentColumnIndex = indexOfBaseEquipmentInEquipmentList; // 获取装备栏索引
+
+            oldBaseEquipmentId = equipmentList[indexOfBaseEquipmentInEquipmentList - 1].IdOfBaseEquipment; // 获取旧基础装备ID
             // 移除基础装备
-            RemoveEquipment(equipmentList[indexOfBaseEquipment - 1]);
+            RemoveEquipment(equipmentList[indexOfBaseEquipmentInEquipmentList - 1]);
         }
-        // 追加装备
+        // <追加装备>
         else
         {
-            equipmentColumnIndex = equipmentList.Count + 1;
+            equipmentColumnIndex = equipmentList.Count + 1; // 获取装备栏索引
         }
 
         // 寻找对应的装备栏
@@ -90,19 +93,29 @@ public partial class ChessObject
             prop.CancelUseProp(); // 取消使用道具
             return;
         }
+        
+        // 是基础装备，且已经有基础装备
+        if (isBaseEquipment && indexOfBaseEquipmentInEquipmentList != -1)
+        {
+            indexOfBaseEquipmentInEquipmentList = -1; // 去除基础装备索引
+
+            // 新装备ID
+            int newBaseEquipmentId = equipmentSerializableClass.IdOfBaseEquipment;
+            // 获取成装名称
+            string bigEquipmentName = BigEquipmentFormula.Instance.GetBigEquipment(oldBaseEquipmentId, newBaseEquipmentId);
+            // 获取成装图片
+            sprite = EquipmentSpriteMap.Instance.GetEquipmentSprite(bigEquipmentName);
+            // 将equipmentName实例化为装备对象
+            equipmentSerializableClass = Y9g.Utils.InstanceClassByString<EquipmentBaseClass>(bigEquipmentName, new object[] { this });
+        }
+        // 是基础装备，且还没有基础装备
+        else if (isBaseEquipment && indexOfBaseEquipmentInEquipmentList == -1)
+        {
+            indexOfBaseEquipmentInEquipmentList = equipmentColumnIndex; // 设置基础装备索引
+        }
 
         // 替换装备栏图片
         equipment.GetComponent<UnityEngine.UI.Image>().sprite = sprite;
-        // 是基础装备，且已经有基础装备
-        if (isBaseEquipment && indexOfBaseEquipment != -1)
-        {
-            indexOfBaseEquipment = -1;
-        }
-        // 是基础装备，且还没有基础装备
-        else if (isBaseEquipment && indexOfBaseEquipment == -1)
-        {
-            indexOfBaseEquipment = equipmentColumnIndex;
-        }
 
         // 添加装备
         AddEquipment(equipmentSerializableClass);

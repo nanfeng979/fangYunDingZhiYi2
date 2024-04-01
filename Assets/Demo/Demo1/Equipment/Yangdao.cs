@@ -1,12 +1,11 @@
-public class Dabang : EquipmentBaseClass
+public class Yangdao : EquipmentBaseClass
 {
-    public Dabang(ChessObject chessObject) : base(chessObject) { }
+    public Yangdao(ChessObject chessObject) : base(chessObject) { }
 
     protected override void DefineProperty()
     {
-        propertyName = "Dabang";
+        propertyName = "Yangdao";
         isBaseEquipment = true;
-        idOfBaseEquipment = 2;
     }
 
     protected override void DefineEvent()
@@ -22,13 +21,13 @@ public class Dabang : EquipmentBaseClass
     // 增加法强
     private void AddSpeddPower(ChessObject chessObject)
     {
-        chessObject.SpellPower += 10f;
+        chessObject.SpellPower += 99f;
     }
 
     // 减少法强
     private void RemoveSpeddPower(ChessObject chessObject)
     {
-        chessObject.SpellPower -= 10f;
+        chessObject.SpellPower -= 99f;
     }
 
     #endregion 生命周期
