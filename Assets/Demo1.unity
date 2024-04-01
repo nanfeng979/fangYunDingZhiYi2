@@ -378,6 +378,7 @@ MonoBehaviour:
   belongTo: Player1
   sprite: {fileID: 21300000, guid: 99b78cbe55e290448b04c9d1e7518a35, type: 3}
   equipmentName: Fanjia
+  equipmentID: 0
 --- !u!1 &586061242
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,6 +532,10 @@ MonoBehaviour:
     equipmentSprite: {fileID: 21300000, guid: 99b78cbe55e290448b04c9d1e7518a35, type: 3}
   - equipmentName: Yangdao
     equipmentSprite: {fileID: 21300000, guid: eb59bf86b51f4df44bbeb5197e890789, type: 3}
+  - equipmentName: Fanqugong
+    equipmentSprite: {fileID: 21300000, guid: c8e0820fbedf7dc48854e7bebd439fd0, type: 3}
+  - equipmentName: Dabang
+    equipmentSprite: {fileID: 21300000, guid: f3941910a1e24854cba21a8f1e23a0eb, type: 3}
 --- !u!4 &811817905
 Transform:
   m_ObjectHideFlags: 0
@@ -697,6 +702,7 @@ MonoBehaviour:
   belongTo: Player2
   sprite: {fileID: 21300000, guid: 99b78cbe55e290448b04c9d1e7518a35, type: 3}
   equipmentName: FanjiaEquipment
+  equipmentID: 0
 --- !u!1001 &1026734491
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -795,6 +801,7 @@ MonoBehaviour:
   belongTo: Player1
   sprite: {fileID: 21300000, guid: ef4b83e053a65364d9b05447a9e9733c, type: 3}
   equipmentName: Yinxue
+  equipmentID: 0
 --- !u!1001 &1207816083
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1300,7 +1307,6 @@ RectTransform:
   - {fileID: 1026734492}
   - {fileID: 8107776415948036884}
   - {fileID: 3051783775237741678}
-  - {fileID: 2462733797824452144}
   m_Father: {fileID: 373220204}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2422,11 +2428,6 @@ Transform:
   m_Father: {fileID: 4460916117286346380}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &2462733797824452144 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 939722472626461876, guid: 1680317f1998a2e4e990f79f95597c8b, type: 3}
-  m_PrefabInstance: {fileID: 3397952498755357316}
-  m_PrefabAsset: {fileID: 0}
 --- !u!23 &2501939286621483080
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2983,67 +2984,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1001 &3397952498755357316
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 2109081759}
-    m_Modifications:
-    - target: {fileID: 939722472626461867, guid: 1680317f1998a2e4e990f79f95597c8b, type: 3}
-      propertyPath: m_Name
-      value: Yangdao
-      objectReference: {fileID: 0}
-    - target: {fileID: 939722472626461867, guid: 1680317f1998a2e4e990f79f95597c8b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 939722472626461876, guid: 1680317f1998a2e4e990f79f95597c8b, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 939722472626461876, guid: 1680317f1998a2e4e990f79f95597c8b, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -132
-      objectReference: {fileID: 0}
-    - target: {fileID: 939722472626461876, guid: 1680317f1998a2e4e990f79f95597c8b, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -19
-      objectReference: {fileID: 0}
-    - target: {fileID: 939722472626461876, guid: 1680317f1998a2e4e990f79f95597c8b, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 4.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 939722472626461876, guid: 1680317f1998a2e4e990f79f95597c8b, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -2.3283064e-10
-      objectReference: {fileID: 0}
-    - target: {fileID: 939722472626461876, guid: 1680317f1998a2e4e990f79f95597c8b, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -1.1641532e-10
-      objectReference: {fileID: 0}
-    - target: {fileID: 939722472626461876, guid: 1680317f1998a2e4e990f79f95597c8b, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.62306094
-      objectReference: {fileID: 0}
-    - target: {fileID: 939722472626461876, guid: 1680317f1998a2e4e990f79f95597c8b, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.78217334
-      objectReference: {fileID: 0}
-    - target: {fileID: 939722472626461876, guid: 1680317f1998a2e4e990f79f95597c8b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 102.92
-      objectReference: {fileID: 0}
-    - target: {fileID: 939722472626461876, guid: 1680317f1998a2e4e990f79f95597c8b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 939722472626461876, guid: 1680317f1998a2e4e990f79f95597c8b, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 1680317f1998a2e4e990f79f95597c8b, type: 3}
 --- !u!1 &3427551216601341827
 GameObject:
   m_ObjectHideFlags: 0
@@ -5127,6 +5067,10 @@ PrefabInstance:
       propertyPath: sprite
       value: 
       objectReference: {fileID: 21300000, guid: c8e0820fbedf7dc48854e7bebd439fd0, type: 3}
+    - target: {fileID: 6881879843924741813, guid: 2dee7bcbeb4efdd41bef04f75e3a5a32, type: 3}
+      propertyPath: equipmentID
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 6881879843924741813, guid: 2dee7bcbeb4efdd41bef04f75e3a5a32, type: 3}
       propertyPath: equipmentName
       value: Fanqugong

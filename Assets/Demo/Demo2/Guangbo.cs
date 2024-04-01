@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using NativeWebSocket;
 using Y9g;
+using System;
 
 public class Guangbo : Singleton<Guangbo>
 {
@@ -30,26 +31,58 @@ public class Guangbo : Singleton<Guangbo>
 
         websocket.OnMessage += (bytes) =>
         {
-            // Reading a plain text message
             var message = System.Text.Encoding.UTF8.GetString(bytes);
             // 将message按冒号分开
             string[] messageArray = message.Split(':');
 
-            // if (messageArray[0] != GameManager.Instance.GetPlayerName())
-            // {
-            //     return;
-            // } 
-            ChessObject chessObject = GameObject.Find(messageArray[1] + "(Clone)")?.GetComponent<ChessObject>();
-            if (chessObject == null)
+            // [0]: 玩家名称
+            // [1]: 云顶之弈对象ID
+            // [2]: 云顶之弈对象类型
+            // [3]: 方法名称
+            // [4~N]: 参数
+
+            // 获取对象
+            GameObject gameObject = IDToGameObjectMap.Instance.GetObject(int.Parse(messageArray[1]));
+            if (gameObject == null)
             {
-                Debug.LogError("chessObject is null");
+                Debug.LogError("gameObject is null");
                 return;
             }
 
-            if (messageArray[2] == "AddEquipmentColumn")
+            // 获取对象的网络组件
+            object networkObject = null;
+            if (messageArray[2] == YunDingZhiYiBaseObjectType.Chess.ToString())
             {
-                chessObject.AddEquipmentColumnOnlyShow(int.Parse(messageArray[3]), messageArray[4]);
+                networkObject = gameObject.GetComponent<ChessObject_NetWork_Interface>();
             }
+            else if (messageArray[2] == YunDingZhiYiBaseObjectType.Prop.ToString())
+            {
+                networkObject = gameObject.GetComponent<Prop_NetWork_Interface>();
+            }
+            if (networkObject == null)
+            {
+                Debug.LogError("networkObject is null");
+                return;
+            }
+            
+            // 获取方法
+            Type type = networkObject.GetType();
+            System.Reflection.MethodInfo method = type.GetMethod(messageArray[3] + "_Network");
+            if (method == null)
+            {
+                Debug.LogError("method is null");
+                return;
+            }
+
+            // 获取参数
+            string[] _params = new string[messageArray.Length - 4];
+            for (int i = 4; i < messageArray.Length; i++)
+            {
+                _params[i - 4] = messageArray[i];
+            }
+
+            // 调用方法
+            method.Invoke(networkObject, _params);
         };
 
         // Waiting for connections to complete
@@ -65,6 +98,11 @@ public class Guangbo : Singleton<Guangbo>
         if (Input.GetKeyDown(KeyCode.S))
         {
             _SendMessage(GameManager.Instance.GetPlayerName() + " 发送消息");
+        }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            IDToGameObjectMap.Instance.PrintAll();
         }
     }
 

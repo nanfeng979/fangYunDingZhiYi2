@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public partial class ChessObject : YunDingZhiYiBaseObject
+public partial class ChessObject : YunDingZhiYiBaseObject, ChessObject_NetWork_Interface
 {
     #region 属性区
     protected Vector2Int vector2IntIndex; // 格子位置
@@ -86,15 +86,13 @@ public partial class ChessObject : YunDingZhiYiBaseObject
 
     protected override void Start()
     {
-        base.Start();
-
-        TempInit(); // 临时初始化
-
         SetStateBefore(); // 设置状态前
 
         SetState(new NoFightState(this)); // 默认状态
 
         LoadUI(); // 加载UI
+
+        base.Start();
     }
 
     protected override void Update()
@@ -127,8 +125,11 @@ public partial class ChessObject : YunDingZhiYiBaseObject
         }
     }
 
-    private void TempInit()
+    protected override void TempInit()
     {
+        base.TempInit();
+
+        objectType = YunDingZhiYiBaseObjectType.Chess;
         AttackSpeed = 1;
     }
 

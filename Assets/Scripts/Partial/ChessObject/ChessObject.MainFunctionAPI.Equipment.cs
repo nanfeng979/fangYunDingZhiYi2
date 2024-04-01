@@ -102,11 +102,11 @@ public partial class ChessObject
             // 新装备ID
             int newBaseEquipmentId = equipmentSerializableClass.IdOfBaseEquipment;
             // 获取成装名称
-            string bigEquipmentName = BigEquipmentFormula.Instance.GetBigEquipment(oldBaseEquipmentId, newBaseEquipmentId);
+            equipmentName = BigEquipmentFormula.Instance.GetBigEquipment(oldBaseEquipmentId, newBaseEquipmentId);
             // 获取成装图片
-            sprite = EquipmentSpriteMap.Instance.GetEquipmentSprite(bigEquipmentName);
+            sprite = EquipmentSpriteMap.Instance.GetEquipmentSprite(equipmentName);
             // 将equipmentName实例化为装备对象
-            equipmentSerializableClass = Y9g.Utils.InstanceClassByString<EquipmentBaseClass>(bigEquipmentName, new object[] { this });
+            equipmentSerializableClass = Y9g.Utils.InstanceClassByString<EquipmentBaseClass>(equipmentName, new object[] { this });
         }
         // 是基础装备，且还没有基础装备
         else if (isBaseEquipment && indexOfBaseEquipmentInEquipmentList == -1)
@@ -115,29 +115,32 @@ public partial class ChessObject
         }
 
         // 替换装备栏图片
-        equipment.GetComponent<UnityEngine.UI.Image>().sprite = sprite;
+        // equipment.GetComponent<UnityEngine.UI.Image>().sprite = sprite;
 
         // 添加装备
         AddEquipment(equipmentSerializableClass);
 
         prop.UseProp(); // 使用道具
         // 广播出去
-        string guangboContent = belongTo + ":"; // 所属
-        guangboContent += objectName + ":"; // 棋子对象
+        string guangboContent = belongTo + ":"; // 玩家所属
+        guangboContent += objectID + ":"; // 棋子对象ID
+        guangboContent += objectType + ":"; // 棋子对象类型
         guangboContent += "AddEquipmentColumn:"; // 添加装备栏
         guangboContent += equipmentColumnIndex + ":"; // 装备栏索引
-        guangboContent += equipmentName + ":"; // 装备名称
+        guangboContent += equipmentName; // 装备名称
 
         Guangbo.Instance._SendMessage(guangboContent); // 广播
     }
 
     /// <summary>
-    /// 添加装备栏，用途只有展示
+    /// 网络形式添加装备栏，用途只有展示
     /// </summary>
     /// <param name="equipmentColumnIndex"></param>
     /// <param name="equipmentName"></param>
-    public void AddEquipmentColumnOnlyShow(int equipmentColumnIndex, string equipmentName)
+    public void AddEquipmentColumn_Network(string equipmentColumnIndex_str, string equipmentName)
     {
+        int equipmentColumnIndex = int.Parse(equipmentColumnIndex_str);
+
         if (equipmentColumn == null)
         {
             return;

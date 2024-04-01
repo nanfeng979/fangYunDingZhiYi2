@@ -4,12 +4,21 @@ public class EquipmentCurrency : PropAreaBaseClass
 {
     [SerializeField]
     private string equipmentName; // 装备名称
+    [SerializeField] int equipmentID; // 装备ID
 
     protected override void RegisterEvent()
     {
         base.RegisterEvent();
 
         OnMouseUpAction += OnMouseUpEvent;
+    }
+
+    protected override void TempInit()
+    {
+        base.TempInit();
+
+        objectName = equipmentName;
+        objectID = equipmentID;
     }
 
     /// <summary>

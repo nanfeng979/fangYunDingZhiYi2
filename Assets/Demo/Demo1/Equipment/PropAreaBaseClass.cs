@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class PropAreaBaseClass : YunDingZhiYiBaseObject
+public class PropAreaBaseClass : YunDingZhiYiBaseObject, Prop_NetWork_Interface
 {
     private Vector3 mOffset; // 鼠标点击位置和物体位置的偏移量
     private float mZCoord; // 道具的 z 坐标
@@ -63,8 +63,28 @@ public class PropAreaBaseClass : YunDingZhiYiBaseObject
         transform.position = oldPosition;
     }
 
+    protected override void TempInit()
+    {
+        base.TempInit();
+
+        objectType = YunDingZhiYiBaseObjectType.Prop;
+    }
+
     // 道具被使用
     public virtual void UseProp()
+    {
+        // gameObject.SetActive(false);
+
+        // 广播
+        string guangboContent = belongTo + ":"; // 玩家所属
+        guangboContent += objectID + ":"; // 道具ID
+        guangboContent += objectType + ":"; // 道具类型
+        guangboContent += "UseProp"; // 使用道具
+
+        Guangbo.Instance._SendMessage(guangboContent); // 广播
+    }
+
+    public void UseProp_Network()
     {
         gameObject.SetActive(false);
     }
