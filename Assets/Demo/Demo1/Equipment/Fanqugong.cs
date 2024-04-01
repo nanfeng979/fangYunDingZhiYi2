@@ -5,6 +5,7 @@ public class Fanqugong : EquipmentBaseClass
     protected override void DefineProperty()
     {
         propertyName = "Fanqugong";
+        isBaseEquipment = true;
     }
 
     protected override void DefineEvent()

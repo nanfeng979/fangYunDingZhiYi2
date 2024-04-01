@@ -12,6 +12,9 @@ public class EquipmentCurrency : PropAreaBaseClass
         OnMouseUpAction += OnMouseUpEvent;
     }
 
+    /// <summary>
+    /// 道具对象在鼠标释放时的行为
+    /// </summary>
     private void OnMouseUpEvent()
     {
         // 当鼠标释放时进行射线检测

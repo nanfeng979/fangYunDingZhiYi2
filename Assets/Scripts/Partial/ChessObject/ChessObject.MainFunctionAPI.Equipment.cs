@@ -3,6 +3,8 @@ using UnityEngine;
 
 public partial class ChessObject
 {
+    private int indexOfBaseEquipment = -1; // 基础装备的索引
+
     /// <summary>
     /// 添加装备
     /// </summary>
@@ -19,6 +21,7 @@ public partial class ChessObject
     /// <param name="equipment"></param>
     private void RemoveEquipment(EquipmentBaseClass equipment)
     {
+        equipment.OnUnWearEvent(this); // 执行装备卸下时的事件
         equipmentList.Remove(equipment); // 在装备列表中移除装备
     }
 
@@ -51,16 +54,6 @@ public partial class ChessObject
             return;
         }
 
-        // 添加装备
-        int equipmentColumnIndex = equipmentList.Count + 1;
-        GameObject equipment = equipmentColumn.transform.Find("Equipment" + equipmentColumnIndex)?.gameObject;
-        if (equipment == null)
-        {
-            prop.CancelUseProp(); // 取消使用道具
-            return;
-        }
-        equipment.GetComponent<UnityEngine.UI.Image>().sprite = sprite;
-
         // 将equipmentName实例化为装备对象
         EquipmentBaseClass equipmentSerializableClass = Y9g.Utils.InstanceClassByString<EquipmentBaseClass>(equipmentName, new object[] { this });
         if (equipmentSerializableClass == null)
@@ -70,7 +63,50 @@ public partial class ChessObject
             return;
         }
 
+        // 判断是否有是础装备
+        bool isBaseEquipment = equipmentSerializableClass.IsBaseEquipment;
+
+        // 添加装备
+        // 获取装备栏索引
+        int equipmentColumnIndex;
+        // 是基础装备，且已经有基础装备，合成装备
+        if (isBaseEquipment && indexOfBaseEquipment != -1)
+        {
+            Debug.Log(indexOfBaseEquipment);
+            equipmentColumnIndex = indexOfBaseEquipment;
+            // 移除基础装备
+            RemoveEquipment(equipmentList[indexOfBaseEquipment - 1]);
+        }
+        // 追加装备
+        else
+        {
+            equipmentColumnIndex = equipmentList.Count + 1;
+        }
+
+        // 寻找对应的装备栏
+        GameObject equipment = equipmentColumn.transform.Find("Equipment" + equipmentColumnIndex)?.gameObject;
+        if (equipment == null)
+        {
+            prop.CancelUseProp(); // 取消使用道具
+            return;
+        }
+
+        // 替换装备栏图片
+        equipment.GetComponent<UnityEngine.UI.Image>().sprite = sprite;
+        // 是基础装备，且已经有基础装备
+        if (isBaseEquipment && indexOfBaseEquipment != -1)
+        {
+            indexOfBaseEquipment = -1;
+        }
+        // 是基础装备，且还没有基础装备
+        else if (isBaseEquipment && indexOfBaseEquipment == -1)
+        {
+            indexOfBaseEquipment = equipmentColumnIndex;
+        }
+
+        // 添加装备
         AddEquipment(equipmentSerializableClass);
+
         prop.UseProp(); // 使用道具
         // 广播出去
         string guangboContent = belongTo + ":"; // 所属

@@ -5,6 +5,7 @@ public class Dabang : EquipmentBaseClass
     protected override void DefineProperty()
     {
         propertyName = "Dabang";
+        isBaseEquipment = true;
     }
 
     protected override void DefineEvent()

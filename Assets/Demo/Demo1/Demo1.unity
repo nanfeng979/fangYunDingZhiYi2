@@ -377,7 +377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   belongTo: Player1
   sprite: {fileID: 21300000, guid: 99b78cbe55e290448b04c9d1e7518a35, type: 3}
-  equipmentName: FanjiaEquipment
+  equipmentName: Fanjia
 --- !u!1 &586061242
 GameObject:
   m_ObjectHideFlags: 0

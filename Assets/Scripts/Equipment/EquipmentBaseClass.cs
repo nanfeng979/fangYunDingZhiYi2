@@ -2,6 +2,8 @@ public abstract class EquipmentBaseClass
 {
     protected string propertyName = "默认装备"; // 装备名称
     protected ChessObject owner; // 拥有者
+    protected bool isBaseEquipment = false; // 是否是基础装备
+    public bool IsBaseEquipment { get { return isBaseEquipment; } }
 
     public EquipmentBaseClass(ChessObject chessObject)
     {
@@ -36,6 +38,12 @@ public abstract class EquipmentBaseClass
     public virtual void OnWearEvent(ChessObject chessObject)
     {
         OnWear?.Invoke(chessObject);
+    }
+
+    // 执行装备卸下时的事件
+    public virtual void OnUnWearEvent(ChessObject chessObject)
+    {
+        OnUnWear?.Invoke(chessObject);
     }
 
     // 执行战斗进行时的事件
