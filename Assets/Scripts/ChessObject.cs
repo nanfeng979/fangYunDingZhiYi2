@@ -56,24 +56,39 @@ public partial class ChessObject : YunDingZhiYiBaseObject
             attack = value;
         }
     }
-    protected float attackInterval; // 攻击间隔
-    public float AttackInterval
+    protected float attackSpped; // 攻击速度
+    public float AttackSpeed
     {
         get
         {
-            return attackInterval;
+            return attackSpped;
         }
         set
         {
-            attackInterval = value;
+            attackSpped = value;
         }
     }
+    protected float spellPower; // 法强
+    public float SpellPower
+    {
+        get
+        {
+            return spellPower;
+        }
+        set
+        {
+            spellPower = value;
+        }
+    }
+
 
     #endregion 属性区
 
     protected override void Start()
     {
         base.Start();
+
+        TempInit(); // 临时初始化
 
         SetStateBefore(); // 设置状态前
 
@@ -110,6 +125,11 @@ public partial class ChessObject : YunDingZhiYiBaseObject
             // 更新血条
             UpdateHealthBar();
         }
+    }
+
+    private void TempInit()
+    {
+        AttackSpeed = 1;
     }
 
     #region 状态区

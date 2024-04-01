@@ -1,6 +1,6 @@
-public class FanjiaEquipment : EquipmentBaseClass
+public class Fanjia : EquipmentBaseClass
 {
-    public FanjiaEquipment(ChessObject chessObject) : base(chessObject) { }
+    public Fanjia(ChessObject chessObject) : base(chessObject) { }
 
     protected override void DefineProperty()
     {

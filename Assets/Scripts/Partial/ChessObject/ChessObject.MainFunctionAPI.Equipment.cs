@@ -7,7 +7,7 @@ public partial class ChessObject
     /// 添加装备
     /// </summary>
     /// <param name="equipment"></param>
-    protected void AddEquipment(EquipmentBaseClass equipment)
+    private void AddEquipment(EquipmentBaseClass equipment)
     {
         equipment.OnWearEvent(this); // 执行装备戴上时的事件
         equipmentList.Add(equipment); // 在装备列表中添加装备
@@ -17,7 +17,7 @@ public partial class ChessObject
     /// 移除装备
     /// </summary>
     /// <param name="equipment"></param>
-    protected void RemoveEquipment(EquipmentBaseClass equipment)
+    private void RemoveEquipment(EquipmentBaseClass equipment)
     {
         equipmentList.Remove(equipment); // 在装备列表中移除装备
     }

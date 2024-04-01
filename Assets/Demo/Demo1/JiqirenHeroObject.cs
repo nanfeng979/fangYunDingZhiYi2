@@ -7,7 +7,7 @@ public class JiqirenHeroObject : ChessObject
         objectName = "Jiqiren";
         HP += 50;
         Attack += 10;
-        AttackInterval = 1.5f;
+        AttackSpeed = 1.5f;
         MaxHp = HP;
     }
 }
