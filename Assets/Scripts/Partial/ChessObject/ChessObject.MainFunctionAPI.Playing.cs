@@ -60,8 +60,17 @@ public partial class ChessObject
     /// <param name="reduceHpValue"></param>
     protected virtual void ReduceHpFun(float reduceHpValue)
     {
-        hp -= reduceHpValue;
+        if (hp - reduceHpValue <= 0)
+        {
+            hp = 0;
+        }
+        else
+        {
+            hp -= reduceHpValue;
+        }
         // Debug.LogError(objectName + " ReduceHpFun hp: " + hp);
+
+        UpdateHealthBar(); // 更新血条
 
         ShowReduceHP(reduceHpValue); // 显示掉血效果
     }

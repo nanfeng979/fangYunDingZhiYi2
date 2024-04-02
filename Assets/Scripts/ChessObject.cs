@@ -133,7 +133,7 @@ public partial class ChessObject : YunDingZhiYiBaseObject, ChessObject_NetWork_I
             }
 
             // 更新血条
-            UpdateHealthBar();
+            // UpdateHealthBar();
         }
     }
 

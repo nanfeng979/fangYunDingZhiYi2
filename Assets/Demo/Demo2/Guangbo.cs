@@ -122,4 +122,20 @@ public class Guangbo : Singleton<Guangbo>
     {
         await websocket.Close();
     }
+
+    // 构造广播内容
+    public string ConstructGuangboContent(string playerName, int objectID, YunDingZhiYiBaseObjectType objectType, string methodName, params string[] _params)
+    {
+        string guangboContent = playerName + ":"; // 玩家所属
+        guangboContent += objectID.ToString() + ":"; // 云顶之弈对象ID
+        guangboContent += objectType.ToString() + ":"; // 云顶之弈对象类型
+        guangboContent += methodName + ":"; // 方法名称
+        for (int i = 0; i < _params.Length; i++)
+        {
+            guangboContent += _params[i] + ":";
+        }
+        guangboContent = guangboContent.Substring(0, guangboContent.Length - 1); // 去掉最后一个冒号
+
+        return guangboContent;
+    }
 }

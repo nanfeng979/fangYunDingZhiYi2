@@ -43,6 +43,30 @@ public partial class ChessObject
     /// </summary>
     protected virtual void UpdateHealthBar()
     {
+        // if (healthBar == null)
+        // {
+        //     return;
+        // }
+
+        // Image healthBarImage = healthBar.GetComponent<Image>();
+        // healthBarImage.fillAmount = hp / maxHp;
+
+        string guangboContent = Guangbo.Instance.ConstructGuangboContent(
+            objectName, objectID,
+            YunDingZhiYiBaseObjectType.Chess, "UpdateHealthBar",
+            hp.ToString());
+
+        Guangbo.Instance._SendMessage(guangboContent); // 广播
+    }
+
+    /// <summary>
+    /// 更新血条，网络
+    /// </summary>
+    /// <param name="hp_str"></param>
+    public void UpdateHealthBar_Network(string hp_str)
+    {
+        float hp = float.Parse(hp_str); // 血量
+
         if (healthBar == null)
         {
             return;
