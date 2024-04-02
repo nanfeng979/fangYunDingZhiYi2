@@ -20,6 +20,14 @@ public partial class ChessObject
     /// </summary>
     private void NormalAttackAnimation(ChessObject beAttackedChessObject)
     {
+        if (animator == null)
+        {
+            Debug.LogError("animator is null");
+            return;
+        }
+        
+        animator.speed = attackSpeed; // 设置动画播放速度
+
         animator.SetTrigger("isAttack"); // 播放攻击动画
 
         LookAtTo(beAttackedChessObject); // 朝向被攻击对象
