@@ -5,7 +5,8 @@ public class EzHeroObject : ChessObject
         base.TempInit();
 
         objectName = "Ez";
-        HP += 30000;
+        objectID = 77;
+        HP += 500;
         Attack += 12;
         MaxHp = HP;
     }
