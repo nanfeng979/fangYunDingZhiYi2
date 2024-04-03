@@ -11,5 +11,7 @@ public class WeiHeroObject : ChessObject
         HP += 500;
         Attack += 10;
         MaxHp = HP; 
+
+        // selfTies.Add("Jushen");
     }
 }

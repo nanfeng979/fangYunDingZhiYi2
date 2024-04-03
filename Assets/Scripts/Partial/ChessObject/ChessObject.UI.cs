@@ -12,6 +12,12 @@ public partial class ChessObject
         LoadEquipmentColumn(); // 加载装备栏
     }
 
+    // 绑定其它UI
+    private void BindOtherUI()
+    {
+        BingdTiesList(); // 绑定羁绊列表
+    }
+
     /// <summary>
     /// 载入画布
     /// </summary>

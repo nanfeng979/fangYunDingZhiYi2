@@ -103,6 +103,9 @@ public partial class ChessObject : YunDingZhiYiBaseObject, ChessObject_NetWork_I
         SetState(new NoFightState(this)); // 默认状态
 
         LoadUI(); // 加载UI
+        BindOtherUI(); // 绑定其它UI
+
+        LoadSelfTiesToTiesList(); // 将自身羁绊加入到羁绊列表
 
         base.Start();
     }

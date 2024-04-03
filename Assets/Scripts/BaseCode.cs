@@ -16,13 +16,6 @@ public class BaseCode : Singleton<BaseCode>
     }
 }
 
-[Serializable]
-public struct IDToGameObject
-{
-    public int ID;
-    public UnityEngine.GameObject gameObject;
-}
-
 public enum YunDingZhiYiBaseObjectType
 {
     Chess,
