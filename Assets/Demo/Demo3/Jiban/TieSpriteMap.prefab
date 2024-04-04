@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2880349993375594035
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2880349993375594037}
+  - component: {fileID: 2880349993375594034}
+  m_Layer: 0
+  m_Name: TieSpriteMap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2880349993375594037
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2880349993375594035}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2880349993375594034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2880349993375594035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8deb638820f8ebf47aee06ae76471e06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TieSpriteMapList:
+  - key: Huwei
+    value: {fileID: 21300000, guid: 356b442012096c7499b2866c53aa53d5, type: 3}
+    value2: {fileID: 0}
+    value3: {fileID: 0}
+    value4: {fileID: 0}
+  - key: Jushen
+    value: {fileID: 21300000, guid: 093e2d9860caff24080a7b5976c2e1ee, type: 3}
+    value2: {fileID: 0}
+    value3: {fileID: 0}
+    value4: {fileID: 0}
+  - key: Mozhiying
+    value: {fileID: 21300000, guid: 47513fef9149f5a45ad634f8819a0bbf, type: 3}
+    value2: {fileID: 0}
+    value3: {fileID: 0}
+    value4: {fileID: 0}
+  - key: Qingtianwei
+    value: {fileID: 21300000, guid: 73cd32c1cda254c4aabec8e88b65ade7, type: 3}
+    value2: {fileID: 0}
+    value3: {fileID: 0}
+    value4: {fileID: 0}
+  - key: Youhun
+    value: {fileID: 21300000, guid: 68f5e3763ea0298448958fb31c4f9ea9, type: 3}
+    value2: {fileID: 0}
+    value3: {fileID: 0}
+    value4: {fileID: 0}
+  - key: Juedoudashi
+    value: {fileID: 21300000, guid: aecb52b3f6ee8f24895af228db6c8857, type: 3}
+    value2: {fileID: 21300000, guid: 685f1733dfc588e49a321b079147b5bc, type: 3}
+    value3: {fileID: 21300000, guid: 0fd41d32db3f90f45a9235db4b38b5ee, type: 3}
+    value4: {fileID: 21300000, guid: bab15b7d10a76f04a991af8d700624de, type: 3}

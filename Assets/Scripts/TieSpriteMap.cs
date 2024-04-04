@@ -7,7 +7,7 @@ public class TieSpriteMap : Singleton<TieSpriteMap>
 {
     [SerializeField]
     private List<TieSpriteMapStruct> TieSpriteMapList;
-    private Dictionary<string, Sprite> TieSpriteMapDict = new Dictionary<string, Sprite>();
+    private Dictionary<string, List<Sprite>> TieSpriteMapDict = new Dictionary<string, List<Sprite>>();
 
 
     void Start()
@@ -19,17 +19,23 @@ public class TieSpriteMap : Singleton<TieSpriteMap>
     {
         foreach (var item in TieSpriteMapList)
         {
-            TieSpriteMapDict.Add(item.key, item.value);
+            List<Sprite> spriteList = new List<Sprite>();
+            spriteList.Add(item.value);
+            spriteList.Add(item.value2);
+            spriteList.Add(item.value3);
+            spriteList.Add(item.value4);
+            TieSpriteMapDict.Add(item.key, spriteList);
         }
     }
 
-    public Sprite GetSprite(string key)
+    public Sprite GetSprite(string key, int index)
     {
-        if (TieSpriteMapDict.ContainsKey(key))
+        if (index < 0 || index > 3)
         {
-            return TieSpriteMapDict[key];
+            Debug.LogWarning("Index out of range");
+            return null;
         }
-        return null;
+        return TieSpriteMapDict[key][index];
     }
 }
 
@@ -38,4 +44,7 @@ public struct TieSpriteMapStruct
 {
     public string key;
     public Sprite value;
+    public Sprite value2;
+    public Sprite value3;
+    public Sprite value4;
 }
