@@ -687,6 +687,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2880349993375594034, guid: 8d63c4fec93a4b54f82412cb8a095747, type: 3}
+      propertyPath: TieSpriteMapList.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2880349993375594034, guid: 8d63c4fec93a4b54f82412cb8a095747, type: 3}
+      propertyPath: TieSpriteMapList.Array.data[6].key
+      value: Jianzhi
+      objectReference: {fileID: 0}
+    - target: {fileID: 2880349993375594034, guid: 8d63c4fec93a4b54f82412cb8a095747, type: 3}
+      propertyPath: TieSpriteMapList.Array.data[6].value
+      value: 
+      objectReference: {fileID: 21300000, guid: 35a17e824986a504ab50c3553ab12007, type: 3}
+    - target: {fileID: 2880349993375594034, guid: 8d63c4fec93a4b54f82412cb8a095747, type: 3}
+      propertyPath: TieSpriteMapList.Array.data[6].value2
+      value: 
+      objectReference: {fileID: 21300000, guid: 469ebfb0e0e790644b3b2845ca8ab150, type: 3}
+    - target: {fileID: 2880349993375594034, guid: 8d63c4fec93a4b54f82412cb8a095747, type: 3}
+      propertyPath: TieSpriteMapList.Array.data[6].value3
+      value: 
+      objectReference: {fileID: 21300000, guid: 003325f1c42781947ab75167a744a218, type: 3}
+    - target: {fileID: 2880349993375594034, guid: 8d63c4fec93a4b54f82412cb8a095747, type: 3}
+      propertyPath: TieSpriteMapList.Array.data[6].value4
+      value: 
+      objectReference: {fileID: 21300000, guid: 3ca8ae1f35b96bc4fac619e976d720cc, type: 3}
     - target: {fileID: 2880349993375594035, guid: 8d63c4fec93a4b54f82412cb8a095747, type: 3}
       propertyPath: m_Name
       value: TieSpriteMap
