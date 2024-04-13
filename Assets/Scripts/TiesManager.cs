@@ -9,11 +9,6 @@ public class TiesManager : Singleton<TiesManager>
     [SerializeField]
     private GameObject tiesListGameObject;
 
-    public GameObject GetTiesListGameObject()
-    {
-        return tiesListGameObject;
-    }
-
     private GameObject[] tieObjectList = new GameObject[8]; // 羁绊的显示对象
     private Dictionary<string, bool> tiesStatusDic = new Dictionary<string, bool>(); // 记录羁绊是否激活
     
@@ -27,6 +22,8 @@ public class TiesManager : Singleton<TiesManager>
     }
 
     private void Update() {
+        ListenerTieUIHeight(); // 监听羁绊UI的高度
+
         if (Input.GetKeyDown(KeyCode.Keypad1)) {
             ActiveTie(new List<string> { "Jushen" });
         }
@@ -208,6 +205,81 @@ public class TiesManager : Singleton<TiesManager>
                 return 0;
             }
         });
+    }
+
+    /// <summary>
+    /// 监听羁绊UI的高度
+    /// </summary>
+    private void ListenerTieUIHeight()
+    {
+        // 已经激活的羁绊个数
+        int activeTieCount = tiesUIList.Count;
+        Debug.Log("activeTieCount: " + activeTieCount);
+
+        if (activeTieCount <= 2)
+        {
+            ChangeTieUILength(100);
+            ChangeTiesListHeight(-300);
+        }
+        else if (activeTieCount <= 4)
+        {
+            ChangeTieUILength(200);
+            ChangeTiesListHeight(-200);
+        }
+        else if (activeTieCount <= 6)
+        {
+            ChangeTieUILength(300);
+            ChangeTiesListHeight(-100);
+        }
+        else if (activeTieCount <= 8)
+        {
+            ChangeTieUILength(400);
+            ChangeTiesListHeight(0);
+        }
+    }
+
+    /// <summary>
+    /// 改变羁绊UI的高度
+    /// </summary>
+    /// <param name="height"></param>
+    private void ChangeTieUILength(float height)
+    {
+        GameObject TieCenter = transform.Find("TieCenter").gameObject;
+        Vector2 TieCenterSize = TieCenter.GetComponent<RectTransform>().sizeDelta;
+        TieCenterSize.y = height;
+        TieCenter.GetComponent<RectTransform>().sizeDelta = TieCenterSize;
+        float TieCenterHeight = TieCenter.GetComponent<RectTransform>().rect.height;
+
+        // 调整
+        GameObject TieTop = transform.Find("TieTop").gameObject;
+        Vector3 TieTopPosition = TieTop.GetComponent<RectTransform>().anchoredPosition;
+        float TieTopHeight = TieTop.GetComponent<RectTransform>().rect.height;
+        TieTopPosition.y = TieCenterHeight + TieTopHeight;
+        TieTop.GetComponent<RectTransform>().anchoredPosition = TieTopPosition;
+
+        GameObject TieBottom = transform.Find("TieBottom").gameObject;
+        Vector3 TieBottomPosition = TieBottom.GetComponent<RectTransform>().anchoredPosition;
+        float TieBottomHeight = TieBottom.GetComponent<RectTransform>().rect.height;
+        TieBottomPosition.y = -TieCenterHeight - TieBottomHeight;
+        TieBottom.GetComponent<RectTransform>().anchoredPosition = TieBottomPosition;
+    }
+
+    /// <summary>
+    /// 改变羁绊列表的高度
+    /// </summary>
+    /// <param name="height"></param>
+    private void ChangeTiesListHeight(float height)
+    {
+        tiesListGameObject.GetComponent<RectTransform>().localPosition = new Vector3(0, height, 0);
+    }
+
+    /// <summary>
+    /// 获取羁绊列表对象
+    /// </summary>
+    /// <returns></returns>
+    public GameObject GetTiesListGameObject()
+    {
+        return tiesListGameObject;
     }
 }
 
