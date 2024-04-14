@@ -18,34 +18,14 @@ public class TiesManager : Singleton<TiesManager>
         InitTiesStatusDic(); // 初始化羁绊状态字典
         LoadTiesList();
 
-        ActiveTie(new List<string> { "Jushen" });
+        // ActiveTie(new List<string> { "Jushen" });
     }
 
     private void Update() {
         ListenerTieUIHeight(); // 监听羁绊UI的高度
 
         if (Input.GetKeyDown(KeyCode.Keypad1)) {
-            ActiveTie(new List<string> { "Jushen" });
-        }
-
-        if (Input.GetKeyDown(KeyCode.Keypad2)) {
-            ActiveTie(new List<string> { "Huwei" });
-        }
-
-        if (Input.GetKeyDown(KeyCode.Keypad3)) {
-            ActiveTie(new List<string> { "Mozhiying" });
-        }
-
-        if (Input.GetKeyDown(KeyCode.Keypad4)) {
-            ActiveTie(new List<string> { "Qingtianwei" });
-        }
-
-        if (Input.GetKeyDown(KeyCode.Keypad5)) {
-            ActiveTie(new List<string> { "Youhun" });
-        }
-
-        if (Input.GetKeyDown(KeyCode.Keypad6)) {
-            ActiveTie(new List<string> { "Juedoudashi" });
+            ActiveTie(new List<string> { "Shanhaihuijuan" });
         }
 
         if (Input.GetKeyDown(KeyCode.Keypad7)) {
@@ -69,6 +49,7 @@ public class TiesManager : Singleton<TiesManager>
         tiesStatusDic.Add("Youhun", false);
         tiesStatusDic.Add("Juedoudashi", false);
         tiesStatusDic.Add("Jianzhi", false);
+        tiesStatusDic.Add("Shanhaihuijuan", false);
     }
 
     /// <summary>
@@ -153,15 +134,18 @@ public class TiesManager : Singleton<TiesManager>
         {
             GameObject tieObject = tieObjectList[i]; // 获取羁绊UI对象
             Image tieObjectImage = tieObject.GetComponent<Image>(); // 获取羁绊UI的Image组件
+            Image tieObjectIconImage = tieObject.transform.Find("TieIcon").GetComponent<Image>(); // 获取羁绊UI的IconImage组件
             Text tieObjectText = tieObject.transform.GetChild(0).GetComponent<Text>(); // 获取羁绊UI的Text组件
 
             // 如果羁绊UI列表中有羁绊
             if (i < tiesUIList.Count)
             {
                 tieObjectImage.enabled = true; // 激活羁绊UI的Image组件
+                tieObjectIconImage.enabled = true; // 激活羁绊UI的IconImage组件
                 tieObjectText.enabled = true; // 激活羁绊UI的Text组件
 
-                tieObjectImage.sprite = tiesUIList[i].TieSprite; // 更新羁绊图片
+                tieObjectImage.color = tiesUIList[i].TieColor; // 更新羁绊颜色
+                tieObjectIconImage.sprite = tiesUIList[i].TieSprite; // 更新羁绊Icon图片
                 tieObjectText.text = tiesUIList[i].TieCount.ToString(); // 更新羁绊数量
             }
             // 如果羁绊UI列表中没有羁绊
@@ -333,16 +317,44 @@ public class TiesUI
     {
         get
         {
-            Sprite tieSpriteTemp = TieSpriteMap.Instance.GetSprite(tieName, (int)tiesUIPriority);
-            if (tieSpriteTemp != null)
+            if (tieSprite != null)
             {
-                tieSprite = tieSpriteTemp;
-                return tieSpriteTemp;
+                return tieSprite;
             }
-
+            tieSprite = TieSpriteMap.Instance.GetSprite(tieName);
             return tieSprite;
         }
     }
+    private Color tieColor;
+    public Color TieColor
+    {
+        get
+        {
+            switch (tiesUIPriority)
+            {
+                case TiesUIPriority.gray:
+                    tieColor = new Color(0.5f, 0.5f, 0.5f, 1);
+                    break;
+                case TiesUIPriority.copper:
+                    tieColor = Utils.HexToColor("#d38f6f");
+                    break;
+                case TiesUIPriority.silvery:
+                    tieColor = Utils.HexToColor("#a2b2b2");
+                    break;
+                case TiesUIPriority.glod:
+                    tieColor = Utils.HexToColor("#e7c976");
+                    break;
+                case TiesUIPriority.diamond:
+                    tieColor = Utils.HexToColor("#e3a0eb");
+                    break;
+                default:
+                    tieColor = new Color(0.5f, 0.5f, 0.5f, 1);
+                    break;
+            }
+            return tieColor;
+        }
+    }
+
 
     private List<int> levelStep = new List<int>() { 0, 2, 4, 6, 8 };
     public List<int> LevelStep
@@ -409,6 +421,10 @@ public class TiesUISerializableFactory
                 };
             case "Jianzhi":
                 return new TiesUI("Jianzhi", new List<int> { 0, 3, 5, 7, 10 })
+                {
+                };
+            case "Shanhaihuijuan":
+                return new TiesUI("Shanhaihuijuan", new List<int> { 0, 3, 5, 7, 10 })
                 {
                 };
             default:

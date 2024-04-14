@@ -689,16 +689,24 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2880349993375594034, guid: 8d63c4fec93a4b54f82412cb8a095747, type: 3}
       propertyPath: TieSpriteMapList.Array.size
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2880349993375594034, guid: 8d63c4fec93a4b54f82412cb8a095747, type: 3}
       propertyPath: TieSpriteMapList.Array.data[6].key
       value: Jianzhi
       objectReference: {fileID: 0}
     - target: {fileID: 2880349993375594034, guid: 8d63c4fec93a4b54f82412cb8a095747, type: 3}
+      propertyPath: TieSpriteMapList.Array.data[7].key
+      value: Shanhaihuijuan
+      objectReference: {fileID: 0}
+    - target: {fileID: 2880349993375594034, guid: 8d63c4fec93a4b54f82412cb8a095747, type: 3}
       propertyPath: TieSpriteMapList.Array.data[6].value
       value: 
       objectReference: {fileID: 21300000, guid: 35a17e824986a504ab50c3553ab12007, type: 3}
+    - target: {fileID: 2880349993375594034, guid: 8d63c4fec93a4b54f82412cb8a095747, type: 3}
+      propertyPath: TieSpriteMapList.Array.data[7].value
+      value: 
+      objectReference: {fileID: 21300000, guid: ac0810541e719e4468ac177cae53010b, type: 3}
     - target: {fileID: 2880349993375594034, guid: 8d63c4fec93a4b54f82412cb8a095747, type: 3}
       propertyPath: TieSpriteMapList.Array.data[6].value2
       value: 
