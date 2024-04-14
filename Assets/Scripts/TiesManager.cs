@@ -28,24 +28,24 @@ public class TiesManager : Singleton<TiesManager>
             ActiveTie(new List<string> { "Shanhaihuijuan" });
         }
 
-        if (Input.GetKeyDown(KeyCode.Keypad2)) {
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {
             UnActiveTie("Shanhaihuijuan");
         }
 
-        if (Input.GetKeyDown(KeyCode.Keypad3)) {
+        if (Input.GetKeyDown(KeyCode.Keypad2)) {
             ActiveTie(new List<string> { "Juedoudashi" });
         }
 
-        if (Input.GetKeyDown(KeyCode.Keypad4)) {
+        if (Input.GetKeyDown(KeyCode.Alpha2)) {
             UnActiveTie("Juedoudashi");
         }
 
-        if (Input.GetKeyDown(KeyCode.Keypad7)) {
-            ActiveTie(new List<string> { "Jianzhi" });
+        if (Input.GetKeyDown(KeyCode.Keypad3)) {
+            ActiveTie(new List<string> { "Qingtianwei" });
         }
 
-        if (Input.GetKeyDown(KeyCode.Keypad8)) {
-            UnActiveTie("Jianzhi");
+        if (Input.GetKeyDown(KeyCode.Alpha3)) {
+            UnActiveTie("Qingtianwei");
         }
     }
 
@@ -403,7 +403,7 @@ public class TiesUISerializableFactory
                 {
                 };
             case "Qingtianwei":
-                return new TiesUI("Qingtianwei")
+                return new TiesUI("Qingtianwei", new List<int> { 0, 2, 4, 6 })
                 {
                 };
             case "Youhun":
@@ -411,11 +411,11 @@ public class TiesUISerializableFactory
                 {
                 };
             case "Juedoudashi":
-                return new TiesUI("Juedoudashi")
+                return new TiesUI("Juedoudashi", new List<int>() { 0, 2, 4, 6, 8 })
                 {
                 };
             case "Jianzhi":
-                return new TiesUI("Jianzhi", new List<int> { 0, 3, 5, 7, 10 })
+                return new TiesUI("Jianzhi")
                 {
                 };
             case "Shanhaihuijuan":
