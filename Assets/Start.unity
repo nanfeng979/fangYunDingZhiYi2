@@ -700,6 +700,10 @@ PrefabInstance:
       value: Shanhaihuijuan
       objectReference: {fileID: 0}
     - target: {fileID: 2880349993375594034, guid: 8d63c4fec93a4b54f82412cb8a095747, type: 3}
+      propertyPath: TieSpriteMapList.Array.data[5].value
+      value: 
+      objectReference: {fileID: 21300000, guid: c561acbade9c7d8459d39acfc8818984, type: 3}
+    - target: {fileID: 2880349993375594034, guid: 8d63c4fec93a4b54f82412cb8a095747, type: 3}
       propertyPath: TieSpriteMapList.Array.data[6].value
       value: 
       objectReference: {fileID: 21300000, guid: 35a17e824986a504ab50c3553ab12007, type: 3}

@@ -28,6 +28,18 @@ public class TiesManager : Singleton<TiesManager>
             ActiveTie(new List<string> { "Shanhaihuijuan" });
         }
 
+        if (Input.GetKeyDown(KeyCode.Keypad2)) {
+            UnActiveTie("Shanhaihuijuan");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Keypad3)) {
+            ActiveTie(new List<string> { "Juedoudashi" });
+        }
+
+        if (Input.GetKeyDown(KeyCode.Keypad4)) {
+            UnActiveTie("Juedoudashi");
+        }
+
         if (Input.GetKeyDown(KeyCode.Keypad7)) {
             ActiveTie(new List<string> { "Jianzhi" });
         }
@@ -152,6 +164,7 @@ public class TiesManager : Singleton<TiesManager>
             else
             {
                 tieObjectImage.enabled = false; // 关闭羁绊UI的Image组件
+                tieObjectIconImage.enabled = false; // 关闭羁绊UI的IconImage组件
                 tieObjectText.enabled = false; // 关闭羁绊UI的Text组件
             }
         }
@@ -163,31 +176,13 @@ public class TiesManager : Singleton<TiesManager>
     /// </summary>
     private void SortTiesUIList()
     {
+        // 按照羁绊优先级排序, 优先级高的在前面
         tiesUIList.Sort((a, b) => {
-            if (a.TiesUIPriority < b.TiesUIPriority)
+            if (a.TiesUIPriority == b.TiesUIPriority)
             {
-                return 1;
+                return (int)b.TieCount - (int)a.TieCount;
             }
-            else if (a.TiesUIPriority >= b.TiesUIPriority)
-            {
-                if (a.TieCount >= b.TieCount)
-                {
-                    return -1;
-                }
-                else if (a.TieCount < b.TieCount)
-                {
-                    return 1;
-                }
-                else
-                {
-                    return 0;
-                }
-                // return -1;
-            }
-            else
-            {
-                return 0;
-            }
+            return (int)b.TiesUIPriority - (int)a.TiesUIPriority;
         });
     }
 
